@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+if [ $# -ne 1 ]; then
+	hostname=$(hostname)
+else
+	hostname=$1
+fi
+echo "Using ${hostname} for the VM test."
+
+nix run -L ".#nixosConfigurations.${hostname}.config.system.build.vmWithDisko"
+
+echo "Clean-up"
+if [ -f "${hostname}-efi-vars.fd" ]; then
+	rm "${hostname}-efi-vars.fd"
+fi
+
+if [ -f "${hostname}.qcow2" ]; then
+	rm "${hostname}.qcow2"
+fi
+
+if [ -f result ]; then
+	rm result
+fi
+
+echo "Done"
