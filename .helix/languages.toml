@@ -1,0 +1,47 @@
+# --- NIX Language Configuration ---
+[[language]]
+name = "nix"
+scope = "source.nix"
+file-types = ["nix"]
+shebangs = ["nix-shell"]
+roots = ["flake.nix", "shell.nix", "default.nix", ".git"]
+comment-token = "#"
+indent = { tab-width = 2, unit = "  " }
+language-servers = ["nixd"]
+formatter = { command = "nixpkgs-fmt", args = ["-"] }
+auto-format = true
+
+[language-server.nixd]
+command = "nixd"
+
+# --- TOML Language Configuration ---
+[[language]]
+name = "toml"
+scope = "source.toml"
+file-types = ["toml"]
+roots = ["Cargo.toml", "pyproject.toml", ".git"]
+comment-token = "#"
+indent = { tab-width = 2, unit = "  " }
+language-servers = ["taplo"]
+formatter = { command = "taplo", args = ["fmt", "-"] }
+
+[language-server.taplo]
+command = "taplo"
+args = ["lsp", "stdio"]
+
+
+# --- Bash/Shell Language Configuration ---
+[[language]]
+name = "bash"
+scope = "source.bash"
+file-types = ["sh", "bash", "zsh", ".bashrc", ".zshrc"]
+shebangs = ["sh", "bash", "zsh"]
+roots = [".git"]
+comment-token = "#"
+indent = { tab-width = 2, unit = "  " }
+language-servers = ["bash-language-server"]
+formatter = { command = "shfmt", args = ["-"] }
+
+[language-server.bash-language-server]
+command = "bash-language-server"
+args = ["start"]
