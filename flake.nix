@@ -52,10 +52,7 @@
                 persist.path = "/persist";
               };
             }
-            ./host/desktop/partitions.nix
-            ./host/desktop/facter.nix
-            ./host/desktop/testing.nix
-            ./host/desktop/configuration.nix
+            ./host/desktop/default.nix
           ];
         };
       };
