@@ -12,7 +12,11 @@
   # ===============================================================
   wayland.windowManager.sway = {
     enable = true;
-    systemd.enable = true;
+    systemd = {
+      enable = true;
+      xdgAutostart = true;
+    };
+    extraOptions = [ "--unsupported-gpu" ];
 
     config = {
       modifier = "Mod4";
@@ -30,6 +34,14 @@
         { command = "${pkgs.networkmanagerapplet}/bin/nm-applet"; }
         { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
         { command = "${pkgs.blueman}/bin/blueman-applet"; }
+        {
+          command = "systemctl --user restart waybar.service";
+          always = true;
+        }
+        {
+          command = "swaymsg workspace number 1";
+          always = true;
+        }
       ];
 
       keybindings =
@@ -124,7 +136,7 @@
   # ===============================================================
   programs.waybar = {
     enable = true;
-    systemd.enable = true;
+    systemd.enable = false;
     settings = [
       {
         layer = "top";
@@ -135,7 +147,7 @@
           "sway/workspaces"
           "sway/mode"
         ];
-        modules-center = [ "sway/window" ];
+        modules-center = [ ];
         modules-right = [
           "pulseaudio"
           "network"

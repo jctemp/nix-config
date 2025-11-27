@@ -87,16 +87,17 @@
         pkgs.mkShellNoCC {
           name = "nix-config";
           packages = with pkgs; [
-            taplo
             bash-language-server
-            nixd
-            nixfmt-rfc-style
             deadnix
-            statix
-            nix-melt
-            nix-diff
-            nix-tree
+            home-manager
             manix
+            nixd
+            nix-diff
+            nixfmt-rfc-style
+            nix-melt
+            nix-tree
+            statix
+            taplo
           ];
         };
     };

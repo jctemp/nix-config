@@ -128,36 +128,44 @@ in
     };
 
     # ===============================================================
-    #       DESKTOP ENVIRONMENT (GNOME)
+    #       Essential services
     # ===============================================================
-    services.xserver = {
+    services.displayManager.ly = {
       enable = true;
-      xkb = {
-        layout = "us";
-        variant = "";
+      settings = {
+        animation = "none"; # or "doom", "matrix", "none"
+        hide_borders = true;
+        blank_password = true;
       };
-      displayManager.gdm = {
-        enable = true;
-        wayland = true;
-      };
-      desktopManager.gnome.enable = true;
     };
 
-    programs.dconf.enable = true;
-    services.accounts-daemon.enable = true;
-    services.gvfs.enable = true;
-    services.power-profiles-daemon.enable = true;
-    services.udisks2.enable = true;
+    # Keep useful system services (work with Sway too)
+    services.gvfs.enable = true; # Virtual filesystems
+    services.udisks2.enable = true; # Disk management
+    services.power-profiles-daemon.enable = true; # Power management
 
+    # XDG portals for Wayland/Sway
     xdg.portal = {
       enable = true;
+      wlr.enable = true;
       extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
         xdg-desktop-portal-gtk
-        xdg-desktop-portal-gnome
       ];
+      config = {
+        common = {
+          default = [ "gtk" ];
+        };
+        sway = {
+          default = [
+            "wlr"
+            "gtk"
+          ];
+          "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+          "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+        };
+      };
     };
-
-    fonts.fontconfig.enable = true;
 
     # ===============================================================
     #       AUDIO (PIPEWIRE)
@@ -392,13 +400,13 @@ in
     # ===============================================================
     #       USERS
     # ===============================================================
-
     systemd.tmpfiles.rules = lib.foldl (
       acc: elem:
       acc
       ++ [
         "d /home/${elem}/.ssh 0750 ${elem} users -"
         "d /home/${elem}/.ssh/sockets 0750 ${elem} users -"
+        "d /home/${elem} 0755 ${elem} users -" # Add this line - ensure home dir exists
       ]
     ) [ ] ([ config.host.users.primary ] ++ config.host.users.collection ++ config.host.users.admins);
 
