@@ -16,7 +16,12 @@
       enable = true;
       xdgAutostart = true;
     };
+    checkConfig = false;
     extraOptions = [ "--unsupported-gpu" ];
+    extraSessionCommands = ''
+      export WLR_NO_HARDWARE_CURSORS=1
+      export WLR_RENDERER=vulkan
+    '';
 
     config = {
       modifier = "Mod4";
@@ -52,6 +57,9 @@
           "${mod}+Return" = "exec ${pkgs.ghostty}/bin/ghostty";
           "${mod}+d" = "exec ${pkgs.fuzzel}/bin/fuzzel";
           "${mod}+Shift+q" = "kill";
+
+          # Locking
+          "${mod}+Shift+Escape" = "exec ${pkgs.swaylock-effects}/bin/swaylock";
 
           # Cheatsheet
           "${mod}+Shift+slash" =
@@ -136,7 +144,7 @@
   # ===============================================================
   programs.waybar = {
     enable = true;
-    systemd.enable = false;
+    systemd.enable = true;
     settings = [
       {
         layer = "top";
@@ -227,6 +235,19 @@
   };
 
   # ===============================================================
+  #       LOCKING
+  # ===============================================================
+  programs.swaylock = {
+    enable = true;
+    package = pkgs.swaylock-effects;
+    settings = {
+      screenshots = true;
+      effect-blur = "7x5";
+      clock = true;
+    };
+  };
+
+  # ===============================================================
   #       NOTIFICATIONS
   # ===============================================================
   services.mako.enable = true;
@@ -291,7 +312,6 @@
     wl-clipboard
     grim
     slurp
-    swaylock
     swayidle
     wdisplays
 

@@ -58,9 +58,20 @@
   };
 
   # ===============================================================
+  #       LOCKING
+  # ===============================================================
+  security.pam.services.swaylock = {
+    enable = true;
+    text = ''
+      auth include login
+    '';
+  };
+
+  # ===============================================================
   #       SECURITY PACKAGES
   # ===============================================================
   environment.systemPackages = with pkgs; [
+    swaylock-effects
     gnupg
     gpgme
     libfido2
