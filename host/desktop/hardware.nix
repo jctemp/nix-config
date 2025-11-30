@@ -45,6 +45,7 @@ in
   # ===============================================================
   #       BLUETOOTH (detected via facter)
   # ===============================================================
+  services.blueman.enable = true;
   hardware.bluetooth = {
     enable = hasBluetoothDevice;
     powerOnBoot = true;

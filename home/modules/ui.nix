@@ -337,13 +337,15 @@
     audacity
     obs-studio
     gimp
-    blender_4_4
+    blender_4_5
     ffmpeg
     imagemagick
     exiftool
+    nautilus
+    lmstudio
 
     # Productivity applications
-    onlyoffice-desktopeditors
+    libreoffice
     zotero
     keepassxc
 
