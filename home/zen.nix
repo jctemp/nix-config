@@ -5,8 +5,11 @@ let
 in
 {
   imports = [
-    ./modules/ui.nix
-    ./modules/development.nix
+    ./modules/wayland.nix
+    ./modules/applications.nix
+    ./modules/editor.nix
+    ./modules/shell.nix
+    ./modules/git.nix
   ];
 
   home = {
@@ -20,7 +23,6 @@ in
     user = {
       name = user.identity;
       inherit (user) email;
-      signingKey = "~/.ssh/id_ed25519_github.pub";
     };
   };
 }

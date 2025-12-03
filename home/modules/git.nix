@@ -1,0 +1,45 @@
+{ pkgs, ... }:
+{
+  programs.git.enable = true;
+
+  programs.gitui = {
+    enable = true;
+    keyConfig = ''
+      (
+          move_left: Some(( code: Char('h'), modifiers: "")),
+          move_right: Some(( code: Char('l'), modifiers: "")),
+          move_up: Some(( code: Char('k'), modifiers: "")),
+          move_down: Some(( code: Char('j'), modifiers: "")),
+          stash_open: Some(( code: Char('l'), modifiers: "")),
+          open_help: Some(( code: F(1), modifiers: "")),
+          status_reset_item: Some(( code: Char('U'), modifiers: "SHIFT")),
+      )
+    '';
+  };
+
+  home.packages = with pkgs; [
+    gh
+  ];
+
+  xdg.configFile."git/ignore".text = ''
+    # Editor files
+    .vscode/
+    .idea/
+    *.swp
+    *.swo
+    *~
+
+    # OS files
+    .DS_Store
+    Thumbs.db
+
+    # Development environment
+    .direnv/
+    .envrc.local
+
+    # Logs and temporary files
+    *.log
+    *.tmp
+    *.temp
+  '';
+}

@@ -5,6 +5,13 @@ let
   );
 in
 {
+  security.pam.services.swaylock = {
+    enable = true;
+    text = ''
+      auth include login
+    '';
+  };
+
   services.displayManager.ly = {
     enable = true;
     settings = {
@@ -60,5 +67,6 @@ in
     xorg.xinit
     xorg.xauth
     xterm
+    swaylock
   ];
 }
