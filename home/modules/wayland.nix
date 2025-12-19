@@ -55,7 +55,7 @@ in
           "${mod}+Shift+Escape" = "exec ${pkgs.swaylock-effects}/bin/swaylock";
           "${mod}+Shift+slash" =
             "exec ${pkgs.ghostty}/bin/ghostty --class=floating-cheatsheet -e sh -c 'less -R ~/.config/sway/cheatsheet.txt'";
-          "${mod}+Shift+e" ="exec ${pkgs.xfce.thunar}/bin/thunar";
+          "${mod}+Shift+e" = "exec ${pkgs.xfce.thunar}/bin/thunar";
 
           # Vim-like focus
           "${mod}+h" = "focus left";

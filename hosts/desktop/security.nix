@@ -1,8 +1,5 @@
 { pkgs, ... }:
 {
-  # TODO: Rework the security model of the hosts leverging SecOPS
-  services.pcscd.enable = true;
-
   # ===============================================================
   #       FUSE
   # ===============================================================
@@ -17,11 +14,25 @@
   };
 
   # ===============================================================
-  #       SECURITY PACKAGES
+  #       SMARTCARD
+  # ===============================================================
+  services.pcscd.enable = true;
+  hardware.nitrokey.enable = true;
+
+  # ===============================================================
+  #       PACKAGES
   # ===============================================================
   environment.systemPackages = with pkgs; [
     swaylock-effects
+
     gnupg
+    pinentry-curses
     libfido2
+
+    nitrokey-app2
+    pynitrokey
+
+    age
+    sops
   ];
 }

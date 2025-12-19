@@ -25,36 +25,39 @@ in
     };
   };
 
-  xdg.configFile."Thunar/uca.xml".text = lib.mkIf hasWayland ''
-    <?xml version="1.0" encoding="UTF-8"?>
-    <actions>
-      <action>
-        <icon>utilities-terminal</icon>
-        <name>Open Terminal Here</name>
-        <command>ghostty --working-directory %f</command>
-        <description>Open terminal in current directory</description>
-        <patterns>*</patterns>
-        <startup-notify/>
-        <directories/>
-      </action>
-      <action>
-        <icon>text-editor</icon>
-        <name>Edit as Root</name>
-        <command>sudo helix %f</command>
-        <description>Edit file with root privileges</description>
-        <patterns>*</patterns>
-        <text-files/>
-      </action>
-      <action>
-        <icon>emblem-symbolic-link</icon>
-        <name>Create Link</name>
-        <command>ln -s %f %f.link</command>
-        <description>Create symbolic link</description>
-        <patterns>*</patterns>
-        <other-files/>
-      </action>
-    </actions>
-  '';
+  xdg.configFile."Thunar/uca.xml" = {
+    force = true;
+    text = lib.mkIf hasWayland ''
+      <?xml version="1.0" encoding="UTF-8"?>
+      <actions>
+        <action>
+          <icon>utilities-terminal</icon>
+          <name>Open Terminal Here</name>
+          <command>ghostty --working-directory %f</command>
+          <description>Open terminal in current directory</description>
+          <patterns>*</patterns>
+          <startup-notify/>
+          <directories/>
+        </action>
+        <action>
+          <icon>text-editor</icon>
+          <name>Edit as Root</name>
+          <command>sudo helix %f</command>
+          <description>Edit file with root privileges</description>
+          <patterns>*</patterns>
+          <text-files/>
+        </action>
+        <action>
+          <icon>emblem-symbolic-link</icon>
+          <name>Create Link</name>
+          <command>ln -s %f %f.link</command>
+          <description>Create symbolic link</description>
+          <patterns>*</patterns>
+          <other-files/>
+        </action>
+      </actions>
+    '';
+  };
 
   home.packages = with pkgs; [
     # CLI tools (no GUI needed)

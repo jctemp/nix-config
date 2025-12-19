@@ -10,6 +10,7 @@ in
     ./modules/editor.nix
     ./modules/shell.nix
     ./modules/git.nix
+    ./modules/gpg.nix
   ];
 
   home = {
