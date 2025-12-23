@@ -74,9 +74,11 @@ in
     enable = true;
     hideMounts = true;
     directories = [
-      "/var/lib/systemd/coredump"
+      "/etc/NetworkManager/system-connections"
+      "/var/lib/bluetooth"
       "/var/lib/nixos"
-      "/var/lib/docker"
+      "/var/lib/systemd/coredump"
+      "/var/log"
     ];
   };
 

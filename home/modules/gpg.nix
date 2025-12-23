@@ -43,9 +43,6 @@
     pinentry.package = pkgs.pinentry-curses;
 
     extraConfig = ''
-      # Allow extra socket for remote forwarding
-      extra-socket /run/user/1000/gnupg/S.gpg-agent.extra
-      
       # Smartcard daemon
       scdaemon-program ${pkgs.gnupg}/libexec/scdaemon
     '';
