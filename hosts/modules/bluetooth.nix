@@ -1,11 +1,11 @@
-{ config, ... }:
-let
-  hasBluetoothDevice = builtins.length (config.facter.report.hardware.bluetooth or [ ]) > 0;
-in
+{ config, lib, ... }:
 {
-  services.blueman.enable = true;
+  host.partition.persist.extraDirectories = lib.optionals config.host.hardware.hasBluetooth [
+    "/var/lib/bluetooth"
+  ];
+  services.blueman.enable = config.host.hardware.hasBluetooth;
   hardware.bluetooth = {
-    enable = hasBluetoothDevice;
+    enable = config.host.hardware.hasBluetooth;
     powerOnBoot = true;
     settings = {
       General = {

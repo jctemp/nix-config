@@ -1,7 +1,8 @@
-{ config
-, pkgs
-, lib
-, ...
+{
+  config,
+  pkgs,
+  lib,
+  ...
 }:
 let
   hostName = config.host.settings.name;
@@ -23,6 +24,15 @@ in
   networking.hostId = builtins.substring 0 8 (builtins.hashString "md5" hostName);
 
   # ===============================================================
+  #       FUSE and SUDO
+  # ===============================================================
+  security.sudo = {
+    extraConfig = "Defaults timestamp_timeout=15";
+    wheelNeedsPassword = true;
+  };
+  programs.fuse.userAllowOther = false; # security risk
+
+  # ===============================================================
   #       NIX CONFIGURATION
   # ===============================================================
   nix = {
@@ -41,6 +51,16 @@ in
   nixpkgs.config.allowUnfree = true;
 
   # ===============================================================
+  #       PACKAGES
+  # ===============================================================
+  environment.systemPackages = with pkgs; [
+    gnupg
+    pinentry-curses
+    age
+    sops
+  ];
+
+  # ===============================================================
   #       LOCALE AND TIME
   # ===============================================================
   time = {
@@ -52,7 +72,7 @@ in
 
   i18n = {
     inherit defaultLocale;
-    extraLocaleSettings = lib.mkIf (!(isNull extraLocale)) {
+    extraLocaleSettings = lib.mkIf (extraLocale != null) {
       LC_ADDRESS = extraLocale;
       LC_IDENTIFICATION = extraLocale;
       LC_MEASUREMENT = extraLocale;

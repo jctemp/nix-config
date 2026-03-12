@@ -1,7 +1,8 @@
-{ inputs
-, config
-, lib
-, ...
+{
+  inputs,
+  config,
+  lib,
+  ...
 }:
 let
   cfg = config.host.partition;
@@ -85,9 +86,8 @@ in
   environment.persistence."${cfg.persist.path}" = {
     enable = true;
     hideMounts = true;
-    directories = [
+    directories = config.host.partition.persist.extraDirectories ++ [
       "/etc/NetworkManager/system-connections"
-      "/var/lib/bluetooth"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
       "/var/log"
@@ -100,17 +100,9 @@ in
   boot = {
     # ZFS rollback for impermanence
     initrd.postDeviceCommands = lib.mkAfter zfs.rollback;
-
     tmp.cleanOnBoot = true;
-
-    supportedFilesystems = [
-      "btrfs"
-      "reiserfs"
+    supportedFilesystems = config.host.settings.extraSupportedFilesystems ++ [
       "vfat"
-      "f2fs"
-      "xfs"
-      "ntfs"
-      "cifs"
       "zfs"
     ];
   };

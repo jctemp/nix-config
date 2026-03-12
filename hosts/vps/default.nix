@@ -1,14 +1,7 @@
-{ config
-, pkgs
-, lib
-, ...
+{
+  pkgs,
+  ...
 }:
-let
-  hostName = config.host.settings.name;
-  inherit (config.host.settings) stateVersion;
-  inherit (config.host.settings) timeZone;
-  inherit (config.host.settings) defaultLocale;
-in
 {
   # ===============================================================
   #       MODULE IMPORTS
@@ -16,14 +9,18 @@ in
   imports = [
     ./hardware.nix
     ./boot.nix
-    ./storage.nix
     ./services.nix
-    ./security.nix
 
+    ../modules/storage.nix
     ../modules/common.nix
     ../modules/networking.nix
     ../modules/docker.nix
   ];
+
+  # ===============================================================
+  #       SSH HARDENING
+  # ===============================================================
+  programs.ssh.startAgent = false;
 
   # ===============================================================
   #       ESSENTIAL SYSTEM PACKAGES

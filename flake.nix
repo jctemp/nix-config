@@ -145,12 +145,12 @@
             manix
             nixd
             nix-diff
-            nixfmt-rfc-style
-            nixpkgs-fmt
             nix-melt
             nix-tree
             statix
             taplo
+            nixfmt
+            nixfmt-tree
           ];
 
           shellHook = ''

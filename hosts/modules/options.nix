@@ -1,13 +1,36 @@
-{ lib, ... }: {
+{ config, lib, ... }:
+{
 
   options.host = {
+    hardware = {
+      hasNvidia = lib.mkOption {
+        type = lib.types.bool;
+        default = builtins.any (gpu: (gpu.vendor.hex or "") == "10de") (
+          config.facter.report.hardware.graphics_card or [ ]
+        );
+      };
+      hasBluetooth = lib.mkOption {
+        type = lib.types.bool;
+        default = builtins.length (config.facter.report.hardware.bluetooth or [ ]) > 0;
+      };
+    };
     settings = {
       name = lib.mkOption { type = lib.types.str; };
       stateVersion = lib.mkOption { type = lib.types.str; };
       timeZone = lib.mkOption { type = lib.types.str; };
       defaultLocale = lib.mkOption { type = lib.types.str; };
-      extraLocale = lib.mkOption { type = lib.types.nullOr lib.types.str; default = null; };
-      keyboardLayout = lib.mkOption { type = lib.types.str; default = "us"; };
+      extraLocale = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+      };
+      keyboardLayout = lib.mkOption {
+        type = lib.types.str;
+        default = "us";
+      };
+      extraSupportedFilesystems = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ ];
+      };
     };
     users = {
       primary = lib.mkOption { type = lib.types.str; };
@@ -22,9 +45,15 @@
     };
     partition = {
       device = lib.mkOption { type = lib.types.str; };
-      persist.path = lib.mkOption {
-        default = "/persist";
-        type = lib.types.str;
+      persist = {
+        path = lib.mkOption {
+          default = "/persist";
+          type = lib.types.str;
+        };
+        extraDirectories = lib.mkOption {
+          default = [ ];
+          type = lib.types.listOf lib.types.str;
+        };
       };
       boot.size = lib.mkOption {
         default = "1M";

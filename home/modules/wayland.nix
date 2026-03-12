@@ -1,4 +1,9 @@
-{ pkgs, lib, osConfig, ... }:
+{
+  pkgs,
+  lib,
+  osConfig,
+  ...
+}:
 let
   hasWayland = osConfig.programs.sway.enable or false;
   hasBluetooth = osConfig.hardware.bluetooth.enable or false;
@@ -132,66 +137,68 @@ in
       enable = true;
       target = "sway-session.target";
     };
-    settings = [{
-      layer = "top";
-      position = "top";
-      height = 28;
-      spacing = 0;
+    settings = [
+      {
+        layer = "top";
+        position = "top";
+        height = 28;
+        spacing = 0;
 
-      modules-left = [ "sway/workspaces" ];
-      modules-center = [ "clock" ];
-      modules-right = [
-        "cpu"
-        "memory"
-        "network"
-      ]
-      ++ lib.optionals hasBluetooth [ "bluetooth" ]
-      ++ [ "pulseaudio" ];
+        modules-left = [ "sway/workspaces" ];
+        modules-center = [ "clock" ];
+        modules-right = [
+          "cpu"
+          "memory"
+          "network"
+        ]
+        ++ lib.optionals hasBluetooth [ "bluetooth" ]
+        ++ [ "pulseaudio" ];
 
-      "sway/workspaces" = {
-        disable-scroll = true;
-        format = "{index}";
-      };
+        "sway/workspaces" = {
+          disable-scroll = true;
+          format = "{index}";
+        };
 
-      clock = {
-        format = "{:%a %d %b  %H:%M}";
-        tooltip-format = "<tt>{calendar}</tt>";
-      };
+        clock = {
+          format = "{:%a %d %b  %H:%M}";
+          tooltip-format = "<tt>{calendar}</tt>";
+        };
 
-      cpu = {
-        format = "cpu {usage}%";
-        interval = 5;
-        on-click = "${pkgs.resources}/bin/resources";
-      };
+        cpu = {
+          format = "cpu {usage}%";
+          interval = 5;
+          on-click = "${pkgs.resources}/bin/resources";
+        };
 
-      memory = {
-        format = "mem {percentage}%";
-        interval = 5;
-        on-click = "${pkgs.resources}/bin/resources";
-      };
+        memory = {
+          format = "mem {percentage}%";
+          interval = 5;
+          on-click = "${pkgs.resources}/bin/resources";
+        };
 
-      network = {
-        format-wifi = "{essid}";
-        format-ethernet = "eth";
-        format-disconnected = "offline";
-        tooltip-format = "{ifname}: {ipaddr}";
-        on-click = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
-      };
+        network = {
+          format-wifi = "{essid}";
+          format-ethernet = "eth";
+          format-disconnected = "offline";
+          tooltip-format = "{ifname}: {ipaddr}";
+          on-click = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
+        };
 
-      bluetooth = {
-        format = "bt {status}";
-        format-connected = "bt {device_alias}";
-        on-click = "${pkgs.blueberry}/bin/blueberry";
-        tooltip-format-connected = "{device_enumerate}";
-        tooltip-format-enumerate-connected = "{device_alias}";
-      };
+        bluetooth = {
+          format = "bt {status}";
+          format-connected = "bt {device_alias}";
+          on-click = "${pkgs.blueberry}/bin/blueberry";
+          tooltip-format-connected = "{device_enumerate}";
+          tooltip-format-enumerate-connected = "{device_alias}";
+        };
 
-      pulseaudio = {
-        format = "vol {volume}%";
-        format-muted = "muted";
-        on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
-      };
-    }];
+        pulseaudio = {
+          format = "vol {volume}%";
+          format-muted = "muted";
+          on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
+        };
+      }
+    ];
 
     style = ''
       * {

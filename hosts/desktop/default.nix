@@ -1,14 +1,14 @@
-{ pkgs
-, ...
+{
+  pkgs,
+  ...
 }:
 {
   imports = [
     ./hardware.nix
     ./boot.nix
-    ./storage.nix
     ./services.nix
-    ./security.nix
 
+    ../modules/storage.nix
     ../modules/common.nix
     ../modules/audio.nix
     ../modules/bluetooth.nix

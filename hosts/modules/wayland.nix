@@ -1,9 +1,9 @@
-{ pkgs, lib, config, ... }:
-let
-  hasNvidiaDevice = builtins.any (gpu: (gpu.vendor.hex or "") == "10de") (
-    config.facter.report.hardware.graphics_card or [ ]
-  );
-in
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   security.pam.services.swaylock = {
     enable = true;
@@ -23,13 +23,13 @@ in
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
-    extraOptions = lib.optionals hasNvidiaDevice [
+    extraOptions = lib.optionals config.host.hardware.hasNvidia [
       "--unsupported-gpu"
     ];
   };
 
   # Nvidia-specific Wayland environment
-  environment.sessionVariables = lib.mkIf hasNvidiaDevice {
+  environment.sessionVariables = lib.mkIf config.host.hardware.hasNvidia {
     WLR_NO_HARDWARE_CURSORS = "1";
     WLR_RENDERER = "vulkan";
     NIXOS_OZONE_WL = "1";

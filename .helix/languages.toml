@@ -8,7 +8,7 @@ roots = ["flake.nix", "shell.nix", "default.nix", ".git"]
 comment-token = "#"
 indent = { tab-width = 2, unit = "  " }
 language-servers = ["nixd"]
-formatter = { command = "nixpkgs-fmt", args = ["-"] }
+formatter = { command = "nixfmt" }
 auto-format = true
 
 [language-server.nixd]
