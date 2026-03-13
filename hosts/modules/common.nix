@@ -17,6 +17,7 @@ in
     ./options.nix
     ./testing.nix
     ./users.nix
+    ./sops.nix
   ];
 
   system.stateVersion = stateVersion;

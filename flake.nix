@@ -11,6 +11,10 @@
     impermanence.url = "github:nix-community/impermanence";
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
     home-manager.url = "github:nix-community/home-manager/master";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     blender-bin.url = "github:edolstra/nix-warez?dir=blender";
     oisd = {
@@ -52,12 +56,15 @@
 
             ./hosts/desktop/default.nix
 
-            ({ lib, ... }: {
-              virtualisation.vmVariantWithDisko = {
-                facter.reportPath = lib.mkForce null;
-                virtualisation.fileSystems."/persist".neededForBoot = true;
-              };
-            })
+            (
+              { lib, ... }:
+              {
+                virtualisation.vmVariantWithDisko = {
+                  facter.reportPath = lib.mkForce null;
+                  virtualisation.fileSystems."/persist".neededForBoot = true;
+                };
+              }
+            )
 
             inputs.home-manager.nixosModules.home-manager
             {

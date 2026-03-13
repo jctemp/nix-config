@@ -1,7 +1,8 @@
-{ inputs
-, config
-, pkgs
-, ...
+{
+  inputs,
+  config,
+  pkgs,
+  ...
 }:
 {
   # ===============================================================
@@ -27,13 +28,20 @@
     pcscd.enable = true;
   };
 
+  # So that GnuPG can accept pinentry for Nitrokey
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-curses;
+  };
+
   environment.systemPackages =
     let
       pynitrokey-with-pcsc = pkgs.python3Packages.pynitrokey.overridePythonAttrs (old: {
         dependencies = old.dependencies ++ old.optional-dependencies.pcsc;
       });
     in
-    with pkgs; [
+    with pkgs;
+    [
       swaylock-effects
       libfido2
       pynitrokey-with-pcsc
