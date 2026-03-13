@@ -152,12 +152,14 @@
             manix
             nixd
             nix-diff
-            nix-melt
-            nix-tree
-            statix
-            taplo
             nixfmt
             nixfmt-tree
+            nix-melt
+            nix-tree
+            nodePackages.prettier
+            statix
+            taplo
+            vscode-langservers-extracted
           ];
 
           shellHook = ''

@@ -13,7 +13,10 @@ auto-format = true
 
 [language-server.nixd]
 command = "nixd"
-
+config.nixd.eval.flags = ["--impure"]
+config.nixd.nixpkgs.expr = "let lock = builtins.fromJSON (builtins.readFile ./flake.lock); in import (builtins.getFlake (\"github:NixOS/nixpkgs/\" + lock.nodes.nixpkgs_4.locked.rev)) { system = \"x86_64-linux\"; }"
+config.nixd.options.nixos.expr = "let lock = builtins.fromJSON (builtins.readFile ./flake.lock); nixpkgs = builtins.getFlake (\"github:NixOS/nixpkgs/\" + lock.nodes.nixpkgs_4.locked.rev); in (nixpkgs.lib.nixosSystem { system = \"x86_64-linux\"; modules = [ (builtins.getFlake (\"github:Mic92/sops-nix/\" + lock.nodes.sops-nix.locked.rev)).nixosModules.sops (builtins.getFlake (\"github:nix-community/impermanence/\" + lock.nodes.impermanence.locked.rev)).nixosModules.impermanence (builtins.getFlake (\"github:nix-community/disko/\" + lock.nodes.disko.locked.rev)).nixosModules.disko ]; }).options"
+config.nixd.options.home-manager.expr = "let lock = builtins.fromJSON (builtins.readFile ./flake.lock); hm = builtins.getFlake (\"github:nix-community/home-manager/\" + lock.nodes.home-manager.locked.rev); nixpkgs = builtins.getFlake (\"github:NixOS/nixpkgs/\" + lock.nodes.nixpkgs_4.locked.rev); in (hm.lib.homeManagerConfiguration { pkgs = import nixpkgs { system = \"x86_64-linux\"; }; modules = [{ home.stateVersion = \"24.11\"; home.username = \"dummy\"; home.homeDirectory = \"/home/dummy\"; }]; }).options"
 # --- TOML Language Configuration ---
 [[language]]
 name = "toml"
@@ -45,3 +48,18 @@ formatter = { command = "shfmt", args = ["-"] }
 [language-server.bash-language-server]
 command = "bash-language-server"
 args = ["start"]
+
+# --- JSON Language Configuration ---
+[[language]]
+name = "json"
+scope = "source.json"
+file-types = ["json", "jsonc"]
+roots = [".git"]
+indent = { tab-width = 2, unit = "  " }
+language-servers = ["vscode-json-language-server"]
+formatter = { command = "prettier", args = ["--parser", "json"] }
+auto-format = true
+
+[language-server.vscode-json-language-server]
+command = "vscode-json-language-server"
+args = ["--stdio"]
