@@ -84,7 +84,7 @@
             {
               host.settings = {
                 name = "vps";
-                stateVersion = "25.05";
+                stateVersion = "25.11";
                 timeZone = "Europe/Berlin";
                 defaultLocale = "en_US.UTF-8";
               };

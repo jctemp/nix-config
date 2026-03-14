@@ -91,7 +91,7 @@
       blocked_names.blocked_names_file =
         let
           blocklist_base = builtins.readFile inputs.oisd;
-          extraBlocklist = '''';
+          extraBlocklist = "";
           blocklist = pkgs.writeText "blocklist.txt" ''
             ${extraBlocklist}
             ${blocklist_base}

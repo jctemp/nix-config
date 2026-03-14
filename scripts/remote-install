@@ -20,19 +20,19 @@ log_error() { echo -e "${RED}[ERROR]${NC} $*" >&2; }
 
 # Usage
 if [[ $# -ne 1 ]]; then
-    echo "Usage: $0 <ip-address>"
-    echo ""
-    echo "Note: You'll be prompted for the root password (default: 12345678)"
-    exit 1
+	echo "Usage: $0 <ip-address>"
+	echo ""
+	echo "Note: You'll be prompted for the root password (default: 12345678)"
+	exit 1
 fi
 
 VPS_IP="$1"
-FACTER_PATH="./host/${FLAKE_HOST}/hardware.json"
+FACTER_PATH="./hosts/${FLAKE_HOST}/hardware.json"
 
 # Install nixos-anywhere if needed
-if ! command -v nixos-anywhere &> /dev/null; then
-    log_info "Installing nixos-anywhere..."
-    nix profile install nixpkgs#nixos-anywhere
+if ! command -v nixos-anywhere &>/dev/null; then
+	log_info "Installing nixos-anywhere..."
+	nix profile install nixpkgs#nixos-anywhere
 fi
 
 # Confirm
@@ -42,14 +42,14 @@ echo "║                 NIXOS VPS DEPLOYMENT                       ║"
 echo "╠════════════════════════════════════════════════════════════╣"
 printf "║ %-58s ║\n" "Target: ${VPS_IP}"
 echo "╠════════════════════════════════════════════════════════════╣"
-echo "║ ⚠️  WARNING: THIS WILL WIPE ALL DATA!                      ║"
+echo "║     WARNING: THIS WILL WIPE ALL DATA!                      ║"
 echo "╚════════════════════════════════════════════════════════════╝"
 echo ""
 read -p "Type 'yes' to continue: " CONFIRM
 
 if [[ "${CONFIRM}" != "yes" ]]; then
-    log_info "Cancelled"
-    exit 0
+	log_info "Cancelled"
+	exit 0
 fi
 
 # Deploy
@@ -60,24 +60,24 @@ echo ""
 mkdir -p "$(dirname "${FACTER_PATH}")"
 
 if nixos-anywhere \
-    --flake ".#${FLAKE_HOST}" \
-    --generate-hardware-config nixos-facter "${FACTER_PATH}" \
-    --target-host "${SSH_USER}@${VPS_IP}" \
-    --build-on remote; then
-    
-    echo ""
-    echo "╔════════════════════════════════════════════════════════════╗"
-    echo "║              ✓ DEPLOYMENT SUCCESSFUL                       ║"
-    echo "╚════════════════════════════════════════════════════════════╝"
-    echo ""
-    log_success "VPS is now running NixOS!"
-    echo ""
-    echo "Next steps:"
-    echo "  1. Wait 1 minute for reboot"
-    echo "  2. ssh worker@${VPS_IP}"
-    echo ""
-    echo "Hardware config saved: ${FACTER_PATH}"
+	--flake ".#${FLAKE_HOST}" \
+	--generate-hardware-config nixos-facter "${FACTER_PATH}" \
+	--target-host "${SSH_USER}@${VPS_IP}" \
+	--build-on remote; then
+
+	echo ""
+	echo "╔════════════════════════════════════════════════════════════╗"
+	echo "║              ✓ DEPLOYMENT SUCCESSFUL                       ║"
+	echo "╚════════════════════════════════════════════════════════════╝"
+	echo ""
+	log_success "VPS is now running NixOS!"
+	echo ""
+	echo "Next steps:"
+	echo "  1. Wait 1 minute for reboot"
+	echo "  2. ssh worker@${VPS_IP}"
+	echo ""
+	echo "Hardware config saved: ${FACTER_PATH}"
 else
-    log_error "Deployment failed!"
-    exit 1
+	log_error "Deployment failed!"
+	exit 1
 fi

@@ -10,10 +10,10 @@
     ./hardware.nix
     ./boot.nix
     ./services.nix
+    ./networking.nix
 
     ../modules/storage.nix
     ../modules/common.nix
-    ../modules/networking.nix
     ../modules/docker.nix
   ];
 
