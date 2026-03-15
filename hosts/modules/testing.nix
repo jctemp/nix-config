@@ -7,7 +7,7 @@
   virtualisation.vmVariantWithDisko = {
     host.hardware.hasNvidia = false;
     host.hardware.hasBluetooth = false;
-    services.desktopManager.cosmic.enable = true;
+    services.desktopManager.cosmic.enable = config.programs.sway.enable or false;
 
     virtualisation = {
       fileSystems."${config.host.partition.persist.path}".neededForBoot = true;

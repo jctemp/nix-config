@@ -21,9 +21,13 @@ let
       #
       # -N prevents automatic mounting (let the mount phase handle this)
       # -f forces import even if the pool wasn't cleanly exported (unsure)
-      # 
-      zpool import -N -f ${zfs.pool}
-      echo "ZFS[code=$?]: import pool ${zfs.pool}"
+      #
+      if ! zpool list ${zfs.pool} > /dev/null 2>&1; then
+        zpool import -N -f ${zfs.pool}
+        echo "ZFS[code=$?]: imported pool ${zfs.pool}"
+      else
+        echo "ZFS: pool ${zfs.pool} already imported"
+      fi
 
       zfs rollback -r ${zfs.blank}
       echo "ZFS[code=$?]: rollback of partition ${zfs.blank}"
