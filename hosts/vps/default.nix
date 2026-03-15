@@ -11,6 +11,7 @@
     ./hardware.nix
     ./networking.nix
     ./services.nix
+    ./secrets.nix
 
     ../modules/common.nix
     ../modules/docker.nix

@@ -12,12 +12,16 @@
   #       SOPS Settings
   # ===============================================================
   sops = {
-    defaultSopsFile = "${inputs.self}/secrets/common/default.yaml";
+    defaultSopsFile = "${inputs.self}/secrets/${config.networking.hostName}/default.yaml";
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
     secrets = {
-      test_key = { };
-      another_secret = { };
+      test_key = {
+        sopsFile = "${inputs.self}/secrets/common/default.yaml";
+      };
+      another_secret = {
+        sopsFile = "${inputs.self}/secrets/common/default.yaml";
+      };
     };
   };
 

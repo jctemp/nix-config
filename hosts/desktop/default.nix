@@ -7,6 +7,7 @@
     ./hardware.nix
     ./boot.nix
     ./networking.nix
+    ./secrets.nix
 
     ../modules/storage.nix
     ../modules/common.nix
