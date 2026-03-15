@@ -24,9 +24,27 @@
   # ===============================================================
   #       SSH SERVER
   # ===============================================================
-  host.partition.persist.extraDirectories = [
-    "/etc/ssh"
+  host.partition.persist.extraFiles = [
+    {
+      file = "/etc/ssh/ssh_host_ed25519_key";
+      parentDirectory.mode = "0755";
+    }
+    {
+      file = "/etc/ssh/ssh_host_ed25519_key.pub";
+      parentDirectory.mode = "0755";
+    }
+    {
+      file = "/etc/ssh/ssh_host_rsa_key";
+      parentDirectory.mode = "0755";
+    }
+    {
+      file = "/etc/ssh/ssh_host_rsa_key.pub";
+      parentDirectory.mode = "0755";
+    }
   ];
+  programs.ssh.extraConfig = ''
+    SecurityKeyProvider /run/current-system/sw/lib/libsk-libfido2.so
+  '';
   services.openssh = {
     enable = true;
     settings = {
@@ -35,22 +53,9 @@
       KbdInteractiveAuthentication = false;
     };
     banner = ''
-                   ___   __             
-           /#\     \QQ\ /fy;            
-           \#+\     \lQvfy/             
-        ,=#####=##+\ \QOy/   /,         
-       /+=#######=++\ \Qq\  /+#;        
-            ,——,       \O/ /+#/_        
-      _____/fy/         ‘ /+###+\       
-      \QOOQfy/           /##/¯¯¯¯       
-       ¯¯/fy/ ,         /y#/            
-        ,fy/ /+\  _____________        
-         \Y  \##\ \QQqQeeOoQQQy\       
-             /#|#\ ‾‾‾‾‾\EQ\‾‾‾‾       
-            ,+#,\#\      \QQ\          
-            \#/ \##\      \Q/          
-             ‾   ‾‾‾
-      ${config.networking.hostName} powered by NixOS ${config.system.nixos.release}
+      █▄ █ █ ▀▄▀ █▀█ █▀▀
+      █ ▀█ █ █ █ █▄█ ▄▄█
+      version ${config.system.nixos.release}
     '';
   };
 }

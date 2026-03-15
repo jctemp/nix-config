@@ -3,6 +3,9 @@
   # ===============================================================
   #       NETWORK MANAGER
   # ===============================================================
+  host.partition.persist.extraDirectories = [
+    "/etc/NetworkManager/system-connections"
+  ];
   networking = {
     networkmanager = {
       enable = true;

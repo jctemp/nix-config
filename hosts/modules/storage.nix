@@ -87,11 +87,11 @@ in
     enable = true;
     hideMounts = true;
     directories = config.host.partition.persist.extraDirectories ++ [
-      "/etc/NetworkManager/system-connections"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
       "/var/log"
     ];
+    files = config.host.partition.persist.extraFiles;
   };
 
   # ===============================================================

@@ -42,6 +42,7 @@
     in
     with pkgs;
     [
+      ccid
       swaylock-effects
       libfido2
       pynitrokey-with-pcsc

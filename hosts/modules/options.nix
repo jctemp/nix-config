@@ -50,6 +50,10 @@
           default = "/persist";
           type = lib.types.str;
         };
+        extraFiles = lib.mkOption {
+          default = [ ];
+          type = lib.types.listOf (lib.types.either lib.types.str lib.types.attrs);
+        };
         extraDirectories = lib.mkOption {
           default = [ ];
           type = lib.types.listOf lib.types.str;
