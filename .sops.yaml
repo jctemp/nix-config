@@ -4,7 +4,7 @@ keys:
   - &recovery "age1ye3hvd0gvus60dc0uu0thy8h5nkw4lvcn53uv2fsp7szksgvfexs6st2qj"
   # Hosts
   - &desktop "age1ust3kmy05n4z4x7f5etmctvpmv9gdy7y0mgvnyv6y9fuhm2lu5ysrasleg"
-  # - &vps "age1..."
+  - &vps "age1vyg486rqhv3eyttarhgux7qhyh7p8c93xawkuurr72zkzss4rccq05fydh"
 
 creation_rules:
   - path_regex: secrets/common/.*
@@ -14,7 +14,7 @@ creation_rules:
         age:
           - *recovery
           - *desktop
-          # - *vps
+          - *vps
           # - *homeserver
           # - *work
 
@@ -24,7 +24,7 @@ creation_rules:
           - *admin
         age:
           - *recovery
-          # - *desktop
+          - *desktop
 
   - path_regex: secrets/vps/.*
     key_groups:
@@ -32,4 +32,4 @@ creation_rules:
           - *admin
         age:
           - *recovery
-          # - *vps
+          - *vps
