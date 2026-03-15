@@ -2,6 +2,10 @@
 {
   programs.gpg = {
     enable = true;
+    scdaemonSettings = {
+      disable-ccid = "";
+      pcsc-shared = "";
+    };
     settings = {
       # Use stronger algorithms
       personal-cipher-preferences = "AES256 AES192 AES";

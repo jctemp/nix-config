@@ -42,9 +42,6 @@
       parentDirectory.mode = "0755";
     }
   ];
-  programs.ssh.extraConfig = ''
-    SecurityKeyProvider /run/current-system/sw/lib/libsk-libfido2.so
-  '';
   services.openssh = {
     enable = true;
     settings = {

@@ -31,6 +31,7 @@
   # So that GnuPG can accept pinentry for Nitrokey
   programs.gnupg.agent = {
     enable = true;
+    enableSSHSupport = false; # don't let gpg-agent hijack SSH_AUTH_SOCK
     pinentryPackage = pkgs.pinentry-curses;
   };
 

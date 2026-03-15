@@ -84,6 +84,8 @@
     };
   };
 
+  services.ssh-agent.enable = true;
+
   home.packages = with pkgs; [
     gh
     fzf
