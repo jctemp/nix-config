@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-sudo nixos-rebuild build --flake .#desktop
-sudo nixos-rebuild dry-run --flake .#desktop
+HOST="${1:-$(hostname)}"
+
+echo "Building $HOST"
+sudo nixos-rebuild build --flake ".#$HOST"
+
+echo "Dry-run $HOST"
+sudo nixos-rebuild dry-run --flake ".#$HOST"
+
+echo "Done"

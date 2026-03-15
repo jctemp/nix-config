@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "Running statix"
-statix fix . -i .direnv
+echo "Running statix check"
+statix check . -i .direnv
 
 echo "Running deadnix"
 deadnix . --exclude .direnv
 
-echo "All checks done"
+echo "Running nix flake check"
+nix flake check --no-build
+
+echo "All checks passed"

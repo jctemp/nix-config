@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "Formatting all Nix files"
-
-# Find all .nix files and format them
+echo "Formatting Nix files"
 find . -name '*.nix' -type f -exec nixpkgs-fmt {} +
+
+echo "Running statix fix"
+statix fix . -i .direnv
 
 echo "Done"
