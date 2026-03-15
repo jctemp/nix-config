@@ -1,6 +1,6 @@
 _: {
   sops.secrets = {
-    test_key = { };
+    test_value = { };
     # wireguard_key = { };
   };
 }
