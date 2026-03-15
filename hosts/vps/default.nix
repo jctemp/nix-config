@@ -7,14 +7,15 @@
   #       MODULE IMPORTS
   # ===============================================================
   imports = [
-    ./hardware.nix
     ./boot.nix
-    ./services.nix
+    ./hardware.nix
     ./networking.nix
+    ./services.nix
 
-    ../modules/storage.nix
     ../modules/common.nix
     ../modules/docker.nix
+    ../modules/networking.nix
+    ../modules/storage.nix
   ];
 
   # ===============================================================

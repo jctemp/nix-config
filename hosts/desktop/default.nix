@@ -6,7 +6,7 @@
   imports = [
     ./hardware.nix
     ./boot.nix
-    ./services.nix
+    ./networking.nix
 
     ../modules/storage.nix
     ../modules/common.nix
@@ -19,6 +19,8 @@
     ../modules/printing.nix
     ../modules/wayland.nix
   ];
+
+  fonts.fontconfig.enable = true;
 
   # ===============================================================
   #       ESSENTIAL SYSTEM PACKAGES

@@ -4,10 +4,13 @@
   networking = {
     useDHCP = lib.mkDefault true;
     firewall = {
-      enable = true;
       allowedTCPPorts = [ 22 ];
       allowedUDPPorts = [ ];
     };
-    nftables.enable = true;
   };
+
+  # Explicit: use provider DNS for now.
+  # TODO: replace with local dnscrypt-proxy + WireGuard listener
+  # once VPN is set up, so all devices resolve through VPS.
+  services.resolved.enable = true;
 }
