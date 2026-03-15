@@ -1,8 +1,7 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
+{ config
+, pkgs
+, lib
+, ...
 }:
 let
   hostName = config.host.settings.name;
@@ -31,7 +30,6 @@ in
     extraConfig = "Defaults timestamp_timeout=15";
     wheelNeedsPassword = true;
   };
-  programs.fuse.userAllowOther = false; # security risk
 
   # ===============================================================
   #       NIX CONFIGURATION
@@ -53,7 +51,7 @@ in
 
   # Switch to lix
   nixpkgs.overlays = [
-    (final: prev: {
+    (_: prev: {
       inherit (prev.lixPackageSets.stable)
         nixpkgs-review
         nix-eval-jobs
@@ -114,59 +112,58 @@ in
     nixos.enable = true;
   };
 
-  # ===============================================================
-  #       SHELL CONFIGURATION
-  # ===============================================================
   users.defaultUserShell = pkgs.bash;
-
-  programs.bash = {
-    completion.enable = true;
-    shellAliases = {
-      ls = "ls --color=auto";
-      dir = "dir --color=auto";
-      vdir = "vdir --color=auto";
-      grep = "grep --color=auto";
-      fgrep = "fgrep --color=auto";
-      egrep = "egrep --color=auto";
-      df = "df -h";
-      du = "du -h";
-      free = "free -h";
-      less = "less -i";
-      mkdir = "mkdir -pv";
-      ping = "ping -c 3";
-      ".." = "cd ..";
-      system-rebuild = "sudo nixos-rebuild switch --flake .#$(hostname)";
+  programs = {
+    #       SHELL CONFIGURATION
+    bash = {
+      completion.enable = true;
+      shellAliases = {
+        ls = "ls --color=auto";
+        dir = "dir --color=auto";
+        vdir = "vdir --color=auto";
+        grep = "grep --color=auto";
+        fgrep = "fgrep --color=auto";
+        egrep = "egrep --color=auto";
+        df = "df -h";
+        du = "du -h";
+        free = "free -h";
+        less = "less -i";
+        mkdir = "mkdir -pv";
+        ping = "ping -c 3";
+        ".." = "cd ..";
+        system-rebuild = "sudo nixos-rebuild switch --flake .#$(hostname)";
+      };
     };
-  };
 
-  # ===============================================================
-  #       GIT SYSTEM CONFIG
-  # ===============================================================
-  programs.git = {
-    enable = true;
-    lfs.enable = true;
-    prompt.enable = true;
-    config = {
-      color.ui = true;
-      grep.lineNumber = true;
-      init.defaultBranch = "main";
-      core = {
-        autocrlf = "input";
-        editor = "${pkgs.vim}/bin/vim";
-      };
-      diff = {
-        mnemonicprefix = true;
-        rename = "copy";
-      };
-      url = {
-        "https://github.com/" = {
-          insteadOf = [
-            "gh:"
-            "github:"
-          ];
+    #       GIT SYSTEM CONFIG
+    git = {
+      enable = true;
+      lfs.enable = true;
+      prompt.enable = true;
+      config = {
+        color.ui = true;
+        grep.lineNumber = true;
+        init.defaultBranch = "main";
+        core = {
+          autocrlf = "input";
+          editor = "${pkgs.vim}/bin/vim";
+        };
+        diff = {
+          mnemonicprefix = true;
+          rename = "copy";
+        };
+        url = {
+          "https://github.com/" = {
+            insteadOf = [
+              "gh:"
+              "github:"
+            ];
+          };
         };
       };
     };
+    #       FUSE (security risk)
+    fuse.userAllowOther = false;
   };
 
 }

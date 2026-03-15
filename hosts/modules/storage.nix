@@ -1,8 +1,7 @@
-{
-  inputs,
-  config,
-  lib,
-  ...
+{ inputs
+, config
+, lib
+, ...
 }:
 let
   cfg = config.host.partition;

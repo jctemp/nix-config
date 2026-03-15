@@ -37,20 +37,20 @@
           };
           modules = [
             {
-              host.settings = {
-                name = "desktop";
-                stateVersion = "24.11";
-                timeZone = "Europe/Berlin";
-                defaultLocale = "en_US.UTF-8";
-                extraLocale = "de_DE.UTF-8";
-                keyboardLayout = "us";
-              };
-
-              host.users.primary = "zen";
-
-              host.partition = {
-                device = "/dev/nvme0n1";
-                persist.path = "/persist";
+              host = {
+                settings = {
+                  name = "desktop";
+                  stateVersion = "24.11";
+                  timeZone = "Europe/Berlin";
+                  defaultLocale = "en_US.UTF-8";
+                  extraLocale = "de_DE.UTF-8";
+                  keyboardLayout = "us";
+                };
+                users.primary = "zen";
+                partition = {
+                  device = "/dev/nvme0n1";
+                  persist.path = "/persist";
+                };
               };
             }
 
@@ -68,10 +68,12 @@
 
             inputs.home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = false;
-              home-manager.useUserPackages = true;
-              home-manager.users.zen = import ./home/zen.nix ./users/zen.nix;
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager = {
+                useGlobalPkgs = false;
+                useUserPackages = true;
+                users.zen = import ./home/zen.nix ./users/zen.nix;
+                extraSpecialArgs = { inherit inputs; };
+              };
             }
           ];
         };
@@ -82,18 +84,18 @@
           };
           modules = [
             {
-              host.settings = {
-                name = "vps";
-                stateVersion = "25.11";
-                timeZone = "Europe/Berlin";
-                defaultLocale = "en_US.UTF-8";
-              };
-
-              host.users.primary = "worker";
-
-              host.partition = {
-                device = "/dev/sda";
-                persist.path = "/persist";
+              host = {
+                settings = {
+                  name = "vps";
+                  stateVersion = "25.11";
+                  timeZone = "Europe/Berlin";
+                  defaultLocale = "en_US.UTF-8";
+                };
+                users.primary = "worker";
+                partition = {
+                  device = "/dev/sda";
+                  persist.path = "/persist";
+                };
               };
             }
 
@@ -101,10 +103,12 @@
 
             inputs.home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = false;
-              home-manager.useUserPackages = true;
-              home-manager.users.worker = import ./home/worker.nix ./users/worker.nix;
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager = {
+                useGlobalPkgs = false;
+                useUserPackages = true;
+                users.worker = import ./home/worker.nix ./users/worker.nix;
+                extraSpecialArgs = { inherit inputs; };
+              };
             }
           ];
         };

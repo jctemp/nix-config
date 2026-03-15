@@ -1,8 +1,7 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
+{ pkgs
+, lib
+, config
+, ...
 }:
 {
   security.pam.services.swaylock = {
@@ -12,20 +11,25 @@
     '';
   };
 
-  services.displayManager.ly = {
-    enable = true;
-    settings = {
-      animation = "matrix";
-      blank_password = true;
-    };
-  };
-
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
     extraOptions = lib.optionals config.host.hardware.hasNvidia [
       "--unsupported-gpu"
     ];
+  };
+
+  services = {
+    displayManager.ly = {
+      enable = true;
+      settings = {
+        animation = "gameoflife";
+        blank_password = true;
+      };
+    };
+    gvfs.enable = true;
+    udisks2.enable = true;
+    power-profiles-daemon.enable = true;
   };
 
   # Nvidia-specific Wayland environment
@@ -58,10 +62,6 @@
       };
     };
   };
-
-  services.gvfs.enable = true;
-  services.udisks2.enable = true;
-  services.power-profiles-daemon.enable = true;
 
   environment.systemPackages = with pkgs; [
     xorg.xinit
