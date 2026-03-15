@@ -8,7 +8,10 @@
       editor = {
         line-number = "absolute";
         true-color = true;
-        rulers = [ 80 120 ];
+        rulers = [
+          80
+          120
+        ];
         color-modes = true;
         end-of-line-diagnostics = "hint";
         auto-pairs = true;
@@ -38,8 +41,18 @@
         };
 
         statusline = {
-          left = [ "mode" "spinner" "file-name" "file-modification-indicator" ];
-          right = [ "diagnostics" "selections" "position" "file-encoding" ];
+          left = [
+            "mode"
+            "spinner"
+            "file-name"
+            "file-modification-indicator"
+          ];
+          right = [
+            "diagnostics"
+            "selections"
+            "position"
+            "file-encoding"
+          ];
         };
 
         lsp = {
@@ -48,26 +61,5 @@
         };
       };
     };
-
-    languages = {
-      language = [
-        {
-          name = "nix";
-          auto-format = true;
-          formatter.command = "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt";
-        }
-      ];
-    };
   };
-
-  xdg.configFile."helix/ignore".text = ''
-    .git/
-    node_modules/
-    target/
-    .direnv/
-    result
-    result-*
-    *.tmp
-    *.log
-  '';
 }

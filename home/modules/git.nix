@@ -20,10 +20,6 @@
     '';
   };
 
-  home.packages = with pkgs; [
-    gh
-  ];
-
   xdg.configFile."git/ignore".text = ''
     # Editor files
     .vscode/

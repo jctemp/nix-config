@@ -80,7 +80,7 @@
     settings = {
       simplified_ui = true;
       show_startup_tips = false;
-      copy_command = "${pkgs.xclip}/bin/xclip -sel clipboard";
+      copy_command = "${pkgs.wl-clipboard}/bin/wl-copy";
     };
   };
 
@@ -88,12 +88,10 @@
 
   home.packages = with pkgs; [
     gh
-    fzf
     fd
     ripgrep
     bat
     eza
-    zoxide
     inxi
     btop
     ncdu

@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   programs.helix.languages = {
     language-server = {
@@ -44,16 +44,27 @@
         language-servers = [ "bash-language-server" ];
         formatter = {
           command = "${pkgs.shfmt}/bin/shfmt";
-          args = [ "-i" "2" "-ci" "-bn" ];
+          args = [
+            "-i"
+            "2"
+            "-ci"
+            "-bn"
+          ];
         };
       }
       {
         name = "python";
         auto-format = true;
-        language-servers = [ "pyright" "ruff" ];
+        language-servers = [
+          "pyright"
+          "ruff"
+        ];
         formatter = {
           command = "${pkgs.ruff}/bin/ruff";
-          args = [ "format" "-" ];
+          args = [
+            "format"
+            "-"
+          ];
         };
       }
       {
@@ -62,7 +73,10 @@
         language-servers = [ "zls" ];
         formatter = {
           command = "${pkgs.zig}/bin/zig";
-          args = [ "fmt" "--stdin" ];
+          args = [
+            "fmt"
+            "--stdin"
+          ];
         };
       }
       {
@@ -71,7 +85,10 @@
         language-servers = [ "clangd" ];
         formatter = {
           command = "${pkgs.clang-tools}/bin/clang-format";
-          args = [ "--style=file" "--fallback-style=LLVM" ];
+          args = [
+            "--style=file"
+            "--fallback-style=LLVM"
+          ];
         };
       }
       {
@@ -80,14 +97,17 @@
         language-servers = [ "clangd" ];
         formatter = {
           command = "${pkgs.clang-tools}/bin/clang-format";
-          args = [ "--style=file" "--fallback-style=LLVM" ];
+          args = [
+            "--style=file"
+            "--fallback-style=LLVM"
+          ];
         };
       }
     ];
   };
 
   # Override ignore patterns with development-specific entries
-  xdg.configFile."helix/ignore".text = lib.mkForce ''
+  xdg.configFile."helix/ignore".text = ''
     .git/
     node_modules/
     target/
