@@ -162,6 +162,24 @@ in
           clock = {
             format = "{:%a %d %b  %H:%M}";
             tooltip-format = "<tt>{calendar}</tt>";
+            calendar = {
+              mode = "month";
+              mode-mon-col = 1;
+              weeks-pos = "left";
+              on-scroll = 1;
+              format = {
+                months = "<span color='#ffffff'><b>{}</b></span>";
+                days = "<span color='#c0c0c0'>{}</span>";
+                weeks = "<span color='#606060'>W{}</span>";
+                weekdays = "<span color='#ffffff'><b>{}</b></span>";
+                today = "<span color='#81a1c1'><b><u>{}</u></b></span>";
+              };
+            };
+            actions = {
+              on-click-right = "mode";
+              on-scroll-up = "shift_up";
+              on-scroll-down = "shift_down";
+            };
           };
 
           cpu = {
