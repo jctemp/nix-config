@@ -220,7 +220,7 @@ in
 
       style = ''
         * {
-          font-family: monospace;
+          font-family: "JetBrains Mono", monospace;
           font-size: 0.85rem;
           border: none;
           border-radius: 0;
@@ -309,7 +309,7 @@ in
       enable = true;
       settings = {
         main = {
-          font = "monospace:size=12";
+          font = "JetBrains Mono:size=12";
           dpi-aware = "yes";
           width = 35;
           horizontal-pad = 12;
@@ -333,7 +333,48 @@ in
     ghostty = {
       enable = true;
       enableBashIntegration = true;
-      settings.font-size = 12;
+      settings = {
+        font-size = 12;
+        font-family = "JetBrains Mono";
+        font-feature = [
+          "-liga"
+          "-calt"
+        ];
+
+        background = "1a1a1a";
+        foreground = "c0c0c0";
+        cursor-color = "c0c0c0";
+        selection-background = "2a2a2a";
+        selection-foreground = "ffffff";
+
+        # Normal colors (0-7)
+        palette = [
+          "0=#1a1a1a" # black
+          "1=#ee6060" # red
+          "2=#7ec87e" # green
+          "3=#d4a057" # yellow
+          "4=#81a1c1" # blue
+          "5=#b48ead" # magenta
+          "6=#88c0d0" # cyan
+          "7=#c0c0c0" # white
+
+          # Bright colors (8-15)
+          "8=#606060" # bright black
+          "9=#ff7070" # bright red
+          "10=#8fd88f" # bright green
+          "11=#e0b060" # bright yellow
+          "12=#93b3d3" # bright blue
+          "13=#c6a0bf" # bright magenta
+          "14=#9ad0e0" # bright cyan
+          "15=#ffffff" # bright white
+        ];
+
+        window-padding-x = 8;
+        window-padding-y = 8;
+        window-decoration = false;
+        confirm-close-surface = false;
+        copy-on-select = "clipboard";
+      };
     };
   };
 
@@ -342,7 +383,7 @@ in
       enable = true;
       settings = {
         "" = {
-          font = "monospace 11";
+          font = "JetBrains Mono 11";
           background-color = "#1a1a1a";
           text-color = "#c0c0c0";
           border-color = "#3383d3";

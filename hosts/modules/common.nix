@@ -1,7 +1,8 @@
-{ config
-, pkgs
-, lib
-, ...
+{
+  config,
+  pkgs,
+  lib,
+  ...
 }:
 let
   hostName = config.host.settings.name;
@@ -166,4 +167,38 @@ in
     fuse.userAllowOther = false;
   };
 
+  # FONTS
+  fonts = {
+    fontconfig.enable = true;
+    enableDefaultPackages = true;
+    fontDir.enable = true;
+
+    packages = with pkgs; [
+      jetbrains-mono
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-color-emoji
+      liberation_ttf
+      dejavu_fonts
+      font-awesome
+    ];
+
+    fontconfig = {
+      defaultFonts = {
+        monospace = [
+          "JetBrains Mono"
+          "Noto Sans Mono"
+        ];
+        sansSerif = [
+          "Noto Sans"
+          "DejaVu Sans"
+        ];
+        serif = [
+          "Noto Serif"
+          "DejaVu Serif"
+        ];
+        emoji = [ "Noto Color Emoji" ];
+      };
+    };
+  };
 }

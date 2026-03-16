@@ -125,8 +125,6 @@ in
       simple-scan
       vscode
       wireshark
-      font-awesome
-      dejavu_fonts
     ]
     ++ lib.optionals hasDocker [
       dive
@@ -144,6 +142,8 @@ in
         "editor.minimap.enabled" = false;
         "telemetry.telemetryLevel" = "off";
         "workbench.sideBar.location" = "right";
+        "editor.fontFamily" = "'JetBrains Mono', monospace";
+        "editor.fontLigatures" = false;
       };
       extensions = with pkgs.vscode-extensions; [
         ms-vscode-remote.remote-ssh

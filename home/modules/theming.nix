@@ -22,7 +22,7 @@ in
     };
 
     font = {
-      name = "DejaVu Sans";
+      name = "JetBrains Mono";
       size = 11;
     };
 

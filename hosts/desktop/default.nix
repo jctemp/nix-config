@@ -1,5 +1,6 @@
-{ pkgs
-, ...
+{
+  pkgs,
+  ...
 }:
 {
   imports = [
@@ -19,8 +20,6 @@
     ../modules/printing.nix
     ../modules/wayland.nix
   ];
-
-  fonts.fontconfig.enable = true;
 
   # ===============================================================
   #       ESSENTIAL SYSTEM PACKAGES
@@ -42,10 +41,5 @@
     inetutils
     mtr
     tcpdump
-
-    # System fonts
-    liberation_ttf
-    corefonts
-    dejavu_fonts
   ];
 }
