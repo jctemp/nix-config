@@ -1,7 +1,8 @@
-{ inputs
-, config
-, pkgs
-, ...
+{
+  inputs,
+  config,
+  pkgs,
+  ...
 }:
 {
   # ===============================================================
@@ -42,6 +43,10 @@
     in
     with pkgs;
     [
+      (pkgs.writeShellScriptBin "gpg-agent-restart" ''
+        gpgconf --kill gpg-agent
+        gpg-agent --daemon
+      '')
       ccid
       swaylock-effects
       libfido2
