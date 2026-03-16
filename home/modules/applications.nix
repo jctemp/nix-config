@@ -1,14 +1,14 @@
-{ pkgs
-, lib
-, osConfig
-, ...
+{
+  pkgs,
+  lib,
+  osConfig,
+  ...
 }:
 let
   hasWayland = osConfig.programs.sway.enable or false;
   hasDocker = osConfig.virtualisation.docker.enable or false;
 in
 {
-  gtk.enable = hasWayland;
   xdg = {
     enable = true;
     userDirs = {

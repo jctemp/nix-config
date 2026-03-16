@@ -13,6 +13,7 @@ in
     ./modules/git.nix
     ./modules/gpg.nix
     ./modules/shell.nix
+    ./modules/theming.nix
     ./modules/wayland.nix
   ];
 

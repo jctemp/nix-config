@@ -1,7 +1,8 @@
-{ pkgs
-, lib
-, osConfig
-, ...
+{
+  pkgs,
+  lib,
+  osConfig,
+  ...
 }:
 let
   hasWayland = osConfig.programs.sway.enable or false;
@@ -19,6 +20,8 @@ in
     extraSessionCommands = ''
       export WLR_NO_HARDWARE_CURSORS=1
       export WLR_RENDERER=vulkan
+      export XCURSOR_THEME=Bibata-Modern-Classic
+      export XCURSOR_SIZE=24
     '';
 
     config = {
@@ -59,6 +62,7 @@ in
           "${mod}+Shift+q" = "kill";
           "${mod}+Shift+Escape" = "exec ${pkgs.swaylock-effects}/bin/swaylock";
           "${mod}+Shift+e" = "exec ${pkgs.xfce.thunar}/bin/thunar";
+          "${mod}+Shift+x" = "exec swaymsg exit";
 
           # Vim-like focus
           "${mod}+h" = "focus left";
@@ -102,10 +106,6 @@ in
           "${mod}+e" = "layout toggle split";
           "${mod}+Shift+space" = "floating toggle";
           "${mod}+space" = "focus mode_toggle";
-
-          # Scratchpad
-          "${mod}+Shift+minus" = "move scratchpad";
-          "${mod}+minus" = "scratchpad show";
 
           # Screenshot
           "${mod}+p" =
