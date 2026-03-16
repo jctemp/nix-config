@@ -261,8 +261,48 @@ in
       package = pkgs.swaylock-effects;
       settings = {
         screenshots = true;
-        effect-blur = "7x5";
         clock = true;
+        indicator = true;
+        indicator-radius = 100;
+        indicator-thickness = 7;
+
+        effect-blur = "15x5";
+        effect-vignette = "0.5:0.5";
+        fade-in = 0;
+
+        font = "monospace";
+        font-size = 24;
+
+        timestr = "%H:%M";
+        datestr = "%a, %d %b";
+
+        # Colors matching your dark theme
+        inside-color = "1a1a1a00";
+        inside-clear-color = "1a1a1a00";
+        inside-ver-color = "1a1a1a00";
+        inside-wrong-color = "1a1a1a00";
+
+        ring-color = "606060ff";
+        ring-clear-color = "c0c0c0ff";
+        ring-ver-color = "81a1c1ff";
+        ring-wrong-color = "ee6060ff";
+
+        key-hl-color = "81a1c1ff";
+        bs-hl-color = "ee6060ff";
+
+        separator-color = "00000000";
+        text-color = "ffffffff";
+        text-clear-color = "ffffffff";
+        text-ver-color = "ffffffff";
+        text-wrong-color = "ffffffff";
+
+        line-color = "00000000";
+        line-clear-color = "00000000";
+        line-ver-color = "00000000";
+        line-wrong-color = "00000000";
+
+        grace = 0;
+        ignore-empty-password = true;
       };
     };
     fuzzel = {
@@ -323,6 +363,26 @@ in
           border-color = "#ee6060";
         };
       };
+    };
+    swayidle = lib.mkIf hasWayland {
+      enable = true;
+      events = [
+        {
+          event = "lock";
+          command = "${pkgs.swaylock-effects}/bin/swaylock -f";
+        }
+      ];
+      timeouts = [
+        {
+          timeout = 300;
+          command = "${pkgs.swaylock-effects}/bin/swaylock -f";
+        }
+        {
+          timeout = 600;
+          command = "${pkgs.sway}/bin/swaymsg 'output * power off'";
+          resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * power on'";
+        }
+      ];
     };
   };
 
