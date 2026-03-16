@@ -20,5 +20,5 @@ else
 	nixos-rebuild switch \
 		--flake ".#$HOST" \
 		--target-host "$TARGET" \
-		--use-remote-sudo
+		--sudo
 fi
