@@ -1,12 +1,11 @@
-{
-  inputs,
-  osConfig,
-  pkgs,
-  ...
+{ inputs
+, osConfig
+, pkgs
+, ...
 }:
 let
   unstable = import inputs.nixpkgs-unstable {
-    system = pkgs.stdenv.hostPlatform.system;
+    inherit (pkgs.stdenv.hostPlatform) system;
     config.allowUnfree = true;
   };
   nixpkgsChannel = osConfig.system.nixos.release;

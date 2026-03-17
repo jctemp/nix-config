@@ -1,8 +1,7 @@
-{
-  pkgs,
-  lib,
-  osConfig,
-  ...
+{ pkgs
+, lib
+, osConfig
+, ...
 }:
 let
   hasWayland = osConfig.programs.sway.enable or false;

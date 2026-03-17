@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    flake-utils.url = "github:numtide/flake-utils";
     disko = {
       url = "github:nix-community/disko/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,13 +27,10 @@
 
   outputs =
     inputs:
-    let
-      system = "x86_64-linux";
-    in
     {
       nixosConfigurations = {
         desktop = inputs.nixpkgs.lib.nixosSystem {
-          inherit system;
+          system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
           };
@@ -79,7 +77,7 @@
           ];
         };
         vps = inputs.nixpkgs.lib.nixosSystem {
-          inherit system;
+          system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
           };
@@ -114,8 +112,10 @@
           ];
         };
       };
+    }
+    // (inputs.flake-utils.lib.eachSystem [ "x86_64-linux" ] (system: {
 
-      apps.${system} = {
+      apps = {
         home-rebuild = {
           type = "app";
           program = "${./scripts/home-rebuild}";
@@ -140,11 +140,19 @@
             mainProgram = "check";
           };
         };
+        vmtest = {
+          type = "app";
+          program = "${./scripts/vmtest}";
+          meta = {
+            description = "Build a vm with the current host configuration";
+            mainProgram = "vmtest";
+          };
+        };
       };
 
-      formatter.${system} = inputs.nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+      formatter = inputs.nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
 
-      devShells.${system}.default =
+      devShells.default =
         let
           pkgs = inputs.nixpkgs.legacyPackages.${system};
         in
@@ -172,5 +180,5 @@
             echo ""
           '';
         };
-    };
+    }));
 }
