@@ -1,9 +1,14 @@
-{ pkgs
+{ inputs
+, pkgs
 , lib
 , osConfig
 , ...
 }:
 let
+  unstable = import inputs.nixpkgs-unstable {
+    system = pkgs.stdenv.hostPlatform.system;
+    config.allowUnfree = true;
+  };
   hasWayland = osConfig.programs.sway.enable or false;
   hasDocker = osConfig.virtualisation.docker.enable or false;
 in
@@ -122,7 +127,6 @@ in
       evince
       sane-frontends
       simple-scan
-      vscode
       wireshark
     ]
     ++ lib.optionals hasDocker [
@@ -130,8 +134,10 @@ in
       lazydocker
     ];
 
+  shellAliases.code = "codium";
   programs.vscode = lib.mkIf hasWayland {
     enable = true;
+    package = unstable.vscodium;
     profiles.default = {
       userSettings = {
         "editor.rulers" = [
@@ -144,9 +150,6 @@ in
         "editor.fontFamily" = "'JetBrains Mono', monospace";
         "editor.fontLigatures" = false;
       };
-      extensions = with pkgs.vscode-extensions; [
-        ms-vscode-remote.remote-ssh
-      ];
     };
   };
 

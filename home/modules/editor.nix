@@ -1,6 +1,14 @@
-_: {
+{ inputs, pkgs, ... }:
+let
+  unstable = import inputs.nixpkgs-unstable {
+    system = pkgs.stdenv.hostPlatform.system;
+    config.allowUnfree = true;
+  };
+in
+{
   programs.helix = {
     enable = true;
+    package = unstable.helix;
     defaultEditor = true;
     settings = {
       theme = "ayu_dark";
