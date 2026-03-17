@@ -8,6 +8,7 @@ in
 {
   imports = [
     ./modules/applications.nix
+    ./modules/creative.nix
     ./modules/development.nix
     ./modules/editor.nix
     ./modules/git.nix

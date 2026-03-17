@@ -6,7 +6,7 @@
 }:
 let
   unstable = import inputs.nixpkgs-unstable {
-    system = pkgs.stdenv.hostPlatform.system;
+    inherit (pkgs.stdenv.hostPlatform) system;
     config.allowUnfree = true;
   };
   hasWayland = osConfig.programs.sway.enable or false;
@@ -141,10 +141,6 @@ in
 
       vlc
       spotify
-      audacity
-      obs-studio
-      gimp
-      lmstudio
       libreoffice
       zotero
       keepassxc
