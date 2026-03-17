@@ -11,6 +11,7 @@ in
     ./modules/creative.nix
     ./modules/development.nix
     ./modules/editor.nix
+    ./modules/gaming.nix
     ./modules/git.nix
     ./modules/gpg.nix
     ./modules/shell.nix
