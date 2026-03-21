@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 let
   domain = "jamie-temple.dev";
   ports = {
@@ -177,6 +177,14 @@ in
         };
       };
       dynamicConfigOptions = {
+        tls = {
+          options = {
+            default = {
+              minVersion = "VersionTLS13";
+              sniStrict = true;
+            };
+          };
+        };
         http = {
           middlewares = {
             auth.forwardAuth = {
