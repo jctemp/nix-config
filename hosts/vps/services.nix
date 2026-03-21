@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   domain = "jamie-temple.dev";
   ports = {
@@ -10,6 +10,7 @@ let
       zfs = 9092;
       wireguard = 9093;
       authelia = 9094;
+      docker = 9095;
     };
   };
 in
@@ -70,9 +71,8 @@ in
       settings = {
         theme = "auto";
         telemetry.metrics = {
-          # TODO: Scrape with prometheus?
-          enabled = false;
-          address = "tcp://0.0.0.0:${toString ports.exporter.authelia}";
+          enabled = true;
+          address = "tcp://127.0.0.1:${toString ports.exporter.authelia}";
         };
         # We could a socket. For ease, we use localhost
         server.address = "tcp://127.0.0.1:${toString ports.authelia}/";
@@ -218,6 +218,12 @@ in
       };
     };
 
+    cadvisor = {
+      enable = true;
+      listenAddress = "127.0.0.1";
+      port = ports.exporter.docker;
+    };
+
     prometheus = {
       enable = true;
       listenAddress = "127.0.0.1";
@@ -233,23 +239,21 @@ in
           port = ports.exporter.node;
         };
         zfs = {
-          # add zfs
+          enable = true;
+          listenAddress = "127.0.0.1";
+          port = ports.exporter.zfs;
         };
-        wireguard = {
-          # add wireguard
-        };
-
       };
 
-      scrapeConfigs = [
-        {
-          job_name = "node";
-          static_configs = [{
-            targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
-          }];
-          # scrape_interval = "30s";
-        }
-      ];
+      scrapeConfigs = map
+        (src:
+          {
+            job_name = src;
+            static_configs = [{
+              targets = [ "127.0.0.1:${toString ports.exporter.${src}}" ];
+            }];
+          }
+        ) [ "node" "zfs" "docker" "authelia" ];
     };
 
     grafana = {
@@ -288,7 +292,14 @@ in
             isDefault = true;
           }
         ];
+        dashboards.settings.providers = [
+          {
+            name = "default";
+            options.path = "/etc/grafana/dashboards";
+          }
+        ];
       };
     };
   };
 }
+
