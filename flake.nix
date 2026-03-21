@@ -173,6 +173,7 @@
             statix
             taplo
             vscode-langservers-extracted
+            openssl
           ];
 
           shellHook = ''

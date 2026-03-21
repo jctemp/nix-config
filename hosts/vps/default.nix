@@ -36,7 +36,6 @@
     zip
     jq
     htop
-    tmux
 
     # Network tools
     dnsutils
@@ -47,5 +46,7 @@
     # Development tools
     git
     rsync
+    ghostty
+    zellij
   ];
 }

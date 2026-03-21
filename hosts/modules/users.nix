@@ -19,12 +19,15 @@ in
     description = user.identity;
     inherit (user) hashedPassword;
     openssh.authorizedKeys.keys = user.authorizedKeys;
-    extraGroups = [ "wheel" ] ++ checkGroups [
+    extraGroups = [
+      "wheel"
+      "headscale"
+      "networkmanager"
+    ] ++ checkGroups [
       "audio"
       "video"
       "docker"
       "libvirtd"
-      "networkmanager"
       "scanner"
       "lp"
       "kvm"

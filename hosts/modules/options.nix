@@ -56,7 +56,7 @@
         };
         extraDirectories = lib.mkOption {
           default = [ ];
-          type = lib.types.listOf lib.types.str;
+          type = lib.types.listOf (lib.types.either lib.types.str lib.types.attrs);
         };
       };
       boot.size = lib.mkOption {
