@@ -4,14 +4,6 @@ _: {
       owner = "grafana";
       group = "grafana";
     };
-    traefik_admin_password = {
-      owner = "traefik";
-      group = "docker";
-    };
-    cloudflare_dns_api_token = {
-      owner = "traefik";
-      group = "docker";
-    };
     authelia_session_enc_key = {
       owner = "authelia-home";
       group = "authelia-home";

@@ -9,8 +9,7 @@
     ./boot.nix
     ./hardware.nix
     ./networking.nix
-    ./services.nix
-    ./secrets.nix
+    ./services
 
     ../modules/common.nix
     ../modules/docker.nix
