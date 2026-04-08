@@ -412,11 +412,6 @@ in
           timeout = 300;
           command = "${pkgs.swaylock-effects}/bin/swaylock -f";
         }
-        {
-          timeout = 600;
-          command = "${pkgs.sway}/bin/swaymsg 'output * power off'";
-          resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * power on'";
-        }
       ];
     };
   };
