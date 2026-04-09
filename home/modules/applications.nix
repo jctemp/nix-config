@@ -1,14 +1,9 @@
-{ inputs
-, pkgs
+{ pkgs
 , lib
 , osConfig
 , ...
 }:
 let
-  unstable = import inputs.nixpkgs-unstable {
-    inherit (pkgs.stdenv.hostPlatform) system;
-    config.allowUnfree = true;
-  };
   hasWayland = osConfig.programs.sway.enable or false;
   hasDocker = osConfig.virtualisation.docker.enable or false;
 in
@@ -160,24 +155,6 @@ in
 
 
   programs = {
-    bash.shellAliases.code = "codium";
-    vscode = {
-      enable = hasWayland;
-      package = unstable.vscodium;
-      profiles.default = {
-        userSettings = {
-          "editor.rulers" = [
-            80
-            120
-          ];
-          "editor.minimap.enabled" = false;
-          "telemetry.telemetryLevel" = "off";
-          "workbench.sideBar.location" = "right";
-          "editor.fontFamily" = "'JetBrains Mono', monospace";
-          "editor.fontLigatures" = false;
-        };
-      };
-    };
     zathura = {
       enable = hasWayland;
       options = {

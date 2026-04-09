@@ -210,7 +210,7 @@ in
         auto-format = true;
         language-servers = [ "vscode-json-languageserver" ];
         formatter = {
-          command = "${unstable.nodePackages.prettier}/bin/prettier";
+          command = "${unstable.prettier}/bin/prettier";
           args = [
             "--parser"
             "json"
@@ -222,7 +222,7 @@ in
         auto-format = true;
         language-servers = [ "yaml-language-server" ];
         formatter = {
-          command = "${unstable.nodePackages.prettier}/bin/prettier";
+          command = "${unstable.prettier}/bin/prettier";
           args = [
             "--parser"
             "yaml"
@@ -234,7 +234,7 @@ in
         auto-format = true;
         language-servers = [ "marksman" ];
         formatter = {
-          command = "${unstable.nodePackages.prettier}/bin/prettier";
+          command = "${unstable.prettier}/bin/prettier";
           args = [
             "--parser"
             "markdown"
@@ -347,7 +347,7 @@ in
 
     # JSON
     unstable.vscode-langservers-extracted
-    unstable.nodePackages.prettier
+    unstable.prettier
 
     # YAML
     unstable.yaml-language-server

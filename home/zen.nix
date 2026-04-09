@@ -17,6 +17,7 @@ in
     ./modules/shell.nix
     ./modules/theming.nix
     ./modules/wayland.nix
+    ./modules/notebooks.nix
   ];
 
   home = {

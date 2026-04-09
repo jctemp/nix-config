@@ -169,7 +169,7 @@
             nixfmt-tree
             nix-melt
             nix-tree
-            nodePackages.prettier
+            prettier
             statix
             taplo
             vscode-langservers-extracted
