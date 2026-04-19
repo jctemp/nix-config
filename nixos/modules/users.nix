@@ -21,7 +21,6 @@ in
     openssh.authorizedKeys.keys = user.authorizedKeys;
     extraGroups = [
       "wheel"
-      "headscale"
       "networkmanager"
     ] ++ checkGroups [
       "audio"

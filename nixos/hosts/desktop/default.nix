@@ -6,18 +6,17 @@
     ./hardware.nix
     ./boot.nix
     ./networking.nix
-    ./secrets.nix
 
-    ../modules/storage.nix
-    ../modules/common.nix
-    ../modules/audio.nix
-    ../modules/bluetooth.nix
-    ../modules/docker.nix
-    ../modules/libvirtd.nix
-    ../modules/networking.nix
-    ../modules/nvidia.nix
-    ../modules/printing.nix
-    ../modules/wayland.nix
+    ../../modules/storage.nix
+    ../../modules/common.nix
+    ../../modules/audio.nix
+    ../../modules/bluetooth.nix
+    ../../modules/docker.nix
+    ../../modules/libvirtd.nix
+    ../../modules/networking.nix
+    ../../modules/nvidia.nix
+    ../../modules/printing.nix
+    ../../modules/wayland.nix
   ];
 
   # ===============================================================

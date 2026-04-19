@@ -7,7 +7,7 @@ keys:
   - &vps "age1vyg486rqhv3eyttarhgux7qhyh7p8c93xawkuurr72zkzss4rccq05fydh"
 
 creation_rules:
-  - path_regex: secrets/common/.*
+  - path_regex: secrets/common\.sops\.yaml$
     key_groups:
       - pgp:
           - *admin
@@ -18,7 +18,7 @@ creation_rules:
           # - *homeserver
           # - *work
 
-  - path_regex: secrets/desktop/.*
+  - path_regex: nixos/hosts/desktop/secrets\.sops\.yaml$
     key_groups:
       - pgp:
           - *admin
@@ -26,7 +26,7 @@ creation_rules:
           - *recovery
           - *desktop
 
-  - path_regex: secrets/vps/.*
+  - path_regex: nixos/hosts/vps/secrets\.sops\.yaml$
     key_groups:
       - pgp:
           - *admin

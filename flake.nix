@@ -53,7 +53,7 @@
               };
             }
 
-            ./hosts/desktop/default.nix
+            ./nixos/hosts/desktop/default.nix
 
             (
               { lib, ... }:
@@ -98,7 +98,7 @@
               };
             }
 
-            ./hosts/vps/default.nix
+            ./nixos/hosts/vps/default.nix
 
             inputs.home-manager.nixosModules.home-manager
             {

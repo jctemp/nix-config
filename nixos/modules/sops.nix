@@ -11,15 +11,15 @@
   #       SOPS Settings
   # ===============================================================
   sops = {
-    defaultSopsFile = "${inputs.self}/secrets/${config.networking.hostName}/default.yaml";
+    defaultSopsFile = "${inputs.self}/nixos/hosts/${config.networking.hostName}/secrets.sops.yaml";
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
     secrets = {
       test_key = {
-        sopsFile = "${inputs.self}/secrets/common/default.yaml";
+        sopsFile = "${inputs.self}/secrets/common.sops.yaml";
       };
       another_secret = {
-        sopsFile = "${inputs.self}/secrets/common/default.yaml";
+        sopsFile = "${inputs.self}/secrets/common.sops.yaml";
       };
     };
   };
