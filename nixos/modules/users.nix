@@ -2,8 +2,7 @@
 let
   user = import "${inputs.self}/users/${config.host.users.primary}.nix";
 
-  checkGroups = groups:
-    builtins.filter (g: builtins.hasAttr g config.users.groups) groups;
+  checkGroups = groups: builtins.filter (g: builtins.hasAttr g config.users.groups) groups;
 in
 {
   # Ensure home directory exists
@@ -22,7 +21,8 @@ in
     extraGroups = [
       "wheel"
       "networkmanager"
-    ] ++ checkGroups [
+    ]
+    ++ checkGroups [
       "audio"
       "video"
       "docker"

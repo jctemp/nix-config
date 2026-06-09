@@ -1,7 +1,8 @@
-{ inputs
-, osConfig
-, pkgs
-, ...
+{
+  inputs,
+  osConfig,
+  pkgs,
+  ...
 }:
 let
   unstable = import inputs.nixpkgs-unstable {

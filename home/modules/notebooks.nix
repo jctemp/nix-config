@@ -1,6 +1,7 @@
-{ inputs
-, pkgs
-, ...
+{
+  inputs,
+  pkgs,
+  ...
 }:
 let
   unstable = import inputs.nixpkgs-unstable {
@@ -56,11 +57,17 @@ in
     # Cross-cell analysis is limited by design; that's what Helix is for.
     language_servers = {
       pyright = {
-        command = [ "${unstable.pyright}/bin/pyright-langserver" "--stdio" ];
+        command = [
+          "${unstable.pyright}/bin/pyright-langserver"
+          "--stdio"
+        ];
         languages = [ "python" ];
       };
       ruff = {
-        command = [ "${unstable.ruff}/bin/ruff" "server" ];
+        command = [
+          "${unstable.ruff}/bin/ruff"
+          "server"
+        ];
         languages = [ "python" ];
       };
     };

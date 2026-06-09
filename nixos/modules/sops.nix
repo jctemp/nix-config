@@ -1,6 +1,7 @@
-{ inputs
-, config
-, ...
+{
+  inputs,
+  config,
+  ...
 }:
 {
   imports = [
@@ -10,19 +11,10 @@
   # ===============================================================
   #       SOPS Settings
   # ===============================================================
-  sops = {
-    defaultSopsFile = "${inputs.self}/nixos/hosts/${config.networking.hostName}/secrets.sops.yaml";
-    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-
-    secrets = {
-      test_key = {
-        sopsFile = "${inputs.self}/secrets/common.sops.yaml";
-      };
-      another_secret = {
-        sopsFile = "${inputs.self}/secrets/common.sops.yaml";
-      };
-    };
-  };
+  # Host decryption key derived from the SSH host key. No secrets are
+  # declared yet; add them under `sops.secrets` once the per-host
+  # secrets.sops.yaml is created (see .sops.yaml creation_rules).
+  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
   # ===============================================================
   #       SSH SERVER

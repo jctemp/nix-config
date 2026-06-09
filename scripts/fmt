@@ -2,7 +2,7 @@
 set -euo pipefail
 
 echo "Formatting Nix files"
-find . -name '*.nix' -type f -exec nixpkgs-fmt {} +
+find . -name '*.nix' -type f -exec nixfmt {} +
 
 echo "Running statix fix"
 statix fix . -i .direnv

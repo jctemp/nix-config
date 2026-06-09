@@ -1,8 +1,9 @@
-{ pkgs
-, lib
-, inputs
-, osConfig
-, ...
+{
+  pkgs,
+  lib,
+  inputs,
+  osConfig,
+  ...
 }:
 let
   unstable = import inputs.nixpkgs-unstable {
@@ -13,16 +14,17 @@ let
   hasNvidia = osConfig.host.hardware.hasNvidia or false;
 in
 {
-  home.packages = lib.optionals hasWayland [
-    unstable.obs-studio
-    unstable.audacity
-    unstable.gimp
-    unstable.freecad
-  ]
-  ++ lib.optionals (hasWayland && hasNvidia) [
-    inputs.blender-bin.packages.${pkgs.stdenv.hostPlatform.system}.default
-  ]
-  ++ lib.optionals (hasWayland && !hasNvidia) [
-    unstable.blender
-  ];
+  home.packages =
+    lib.optionals hasWayland [
+      unstable.obs-studio
+      unstable.audacity
+      unstable.gimp
+      unstable.freecad
+    ]
+    ++ lib.optionals (hasWayland && hasNvidia) [
+      inputs.blender-bin.packages.${pkgs.stdenv.hostPlatform.system}.default
+    ]
+    ++ lib.optionals (hasWayland && !hasNvidia) [
+      unstable.blender
+    ];
 }

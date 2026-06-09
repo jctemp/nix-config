@@ -1,7 +1,8 @@
-{ pkgs
-, lib
-, osConfig
-, ...
+{
+  pkgs,
+  lib,
+  osConfig,
+  ...
 }:
 let
   hasWayland = osConfig.programs.sway.enable or false;
@@ -406,7 +407,9 @@ in
     };
     swayidle = lib.mkIf hasWayland {
       enable = true;
-      events = { lock = "${pkgs.swaylock-effects}/bin/swaylock -f"; };
+      events = {
+        lock = "${pkgs.swaylock-effects}/bin/swaylock -f";
+      };
       timeouts = [
         {
           timeout = 300;

@@ -78,53 +78,69 @@
         };
       };
     }
-    // (inputs.flake-utils.lib.eachSystem [ "x86_64-linux" ] (system: {
+    // (inputs.flake-utils.lib.eachSystem [ "x86_64-linux" ] (
+      system:
+      let
+        pkgs = import inputs.nixpkgs-unstable {
+          inherit system;
+          config.allowUnfree = true;
+        };
+        # Lint gate: run a tool over the flake source, succeed by touching $out.
+        lintCheck =
+          name: tool: cmd:
+          pkgs.runCommand "check-${name}" { nativeBuildInputs = [ tool ]; } ''
+            cd ${./.}
+            ${cmd}
+            touch $out
+          '';
+      in
+      {
+        apps = {
+          home-rebuild = {
+            type = "app";
+            program = "${./scripts/home-rebuild}";
+            meta = {
+              description = "Rebuild home-manager configuration quickly";
+              mainProgram = "home-rebuild";
+            };
+          };
+          fmt = {
+            type = "app";
+            program = "${./scripts/fmt}";
+            meta = {
+              description = "Format all Nix files with nixfmt (RFC style)";
+              mainProgram = "fmt";
+            };
+          };
+          check = {
+            type = "app";
+            program = "${./scripts/check}";
+            meta = {
+              description = "Run statix and deadnix linters";
+              mainProgram = "check";
+            };
+          };
+          vmtest = {
+            type = "app";
+            program = "${./scripts/vmtest}";
+            meta = {
+              description = "Build a vm with the current host configuration";
+              mainProgram = "vmtest";
+            };
+          };
+        };
 
-      apps = {
-        home-rebuild = {
-          type = "app";
-          program = "${./scripts/home-rebuild}";
-          meta = {
-            description = "Rebuild home-manager configuration quickly";
-            mainProgram = "home-rebuild";
-          };
-        };
-        fmt = {
-          type = "app";
-          program = "${./scripts/fmt}";
-          meta = {
-            description = "Format all Nix files with nixpkgs-fmt";
-            mainProgram = "fmt";
-          };
-        };
-        check = {
-          type = "app";
-          program = "${./scripts/check}";
-          meta = {
-            description = "Run statix and deadnix linters";
-            mainProgram = "check";
-          };
-        };
-        vmtest = {
-          type = "app";
-          program = "${./scripts/vmtest}";
-          meta = {
-            description = "Build a vm with the current host configuration";
-            mainProgram = "vmtest";
-          };
-        };
-      };
+        formatter = pkgs.nixfmt;
 
-      formatter = inputs.nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+        # `nix flake check` gates these. Build/VM tests stay manual via
+        # scripts/{test,vmtest} since a full system closure is heavy for CI.
+        checks = {
+          format = lintCheck "format" pkgs.nixfmt "find . -name '*.nix' -type f -exec nixfmt --check {} +";
+          statix = lintCheck "statix" pkgs.statix "statix check .";
+          deadnix = lintCheck "deadnix" pkgs.deadnix "deadnix --fail .";
+        };
 
-      devShells.default =
-        let
-          pkgs = import inputs.nixpkgs-unstable {
-            inherit system;
-            config.allowUnfree = true;
-          };
-        in
-        pkgs.mkShellNoCC {
+        devShells.default = pkgs.mkShellNoCC {
           name = "nix-config";
           packages = with pkgs; [
             bash-language-server
@@ -134,7 +150,6 @@
             nixd
             nix-diff
             nixfmt
-            nixfmt-tree
             nix-melt
             nix-tree
             prettier
@@ -150,5 +165,6 @@
             echo ""
           '';
         };
-    }));
+      }
+    ));
 }
