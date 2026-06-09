@@ -114,7 +114,7 @@ in
         name = "nix";
         auto-format = true;
         language-servers = [ "nixd" ];
-        formatter.command = "${unstable.nixpkgs-fmt}/bin/nixpkgs-fmt";
+        formatter.command = "${unstable.nixfmt}/bin/nixfmt";
       }
       {
         name = "bash";
@@ -306,7 +306,7 @@ in
   home.packages = with unstable; [
     # Nix
     nixd
-    nixpkgs-fmt
+    nixfmt
     statix
     deadnix
 
@@ -337,36 +337,36 @@ in
     lldb
 
     # Rust
-    unstable.cargo
-    unstable.rustc
-    unstable.rustfmt
-    unstable.clippy
-    unstable.rust-analyzer
+    cargo
+    rustc
+    rustfmt
+    clippy
+    rust-analyzer
 
     # TOML
-    unstable.taplo
+    taplo
 
     # JSON
-    unstable.vscode-langservers-extracted
-    unstable.prettier
+    vscode-langservers-extracted
+    prettier
 
     # YAML
-    unstable.yaml-language-server
+    yaml-language-server
 
     # Markdown
-    unstable.marksman
+    marksman
 
     # Typst
-    unstable.typst
-    unstable.tinymist
-    unstable.typstyle
+    typst
+    tinymist
+    typstyle
 
     # LaTeX
-    unstable.texlive.combined.scheme-medium
-    unstable.texlab
+    texlive.combined.scheme-medium
+    texlab
 
     # SQL
-    unstable.pgformatter
+    pgformatter
 
     # General
     tree-sitter

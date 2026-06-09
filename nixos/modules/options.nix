@@ -34,14 +34,6 @@
     };
     users = {
       primary = lib.mkOption { type = lib.types.str; };
-      collection = lib.mkOption {
-        default = [ ];
-        type = lib.types.listOf lib.types.str;
-      };
-      admins = lib.mkOption {
-        default = [ ];
-        type = lib.types.listOf lib.types.str;
-      };
     };
     partition = {
       device = lib.mkOption { type = lib.types.str; };
