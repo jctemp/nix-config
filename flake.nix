@@ -2,7 +2,7 @@
   description = "Desktop NixOS Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
@@ -76,41 +76,6 @@
             }
           ];
         };
-        vps = inputs.nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-          modules = [
-            {
-              host = {
-                settings = {
-                  name = "vps";
-                  stateVersion = "25.11";
-                  timeZone = "Europe/Berlin";
-                  defaultLocale = "en_US.UTF-8";
-                };
-                users.primary = "worker";
-                partition = {
-                  device = "/dev/sda";
-                  persist.path = "/persist";
-                };
-              };
-            }
-
-            ./nixos/hosts/vps/default.nix
-
-            inputs.home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = false;
-                useUserPackages = true;
-                users.worker = import ./home/worker.nix ./users/worker.nix;
-                extraSpecialArgs = { inherit inputs; };
-              };
-            }
-          ];
-        };
       };
     }
     // (inputs.flake-utils.lib.eachSystem [ "x86_64-linux" ] (system: {
@@ -154,7 +119,10 @@
 
       devShells.default =
         let
-          pkgs = inputs.nixpkgs.legacyPackages.${system};
+          pkgs = import inputs.nixpkgs-unstable {
+            inherit system;
+            config.allowUnfree = true;
+          };
         in
         pkgs.mkShellNoCC {
           name = "nix-config";
@@ -174,6 +142,7 @@
             taplo
             vscode-langservers-extracted
             openssl
+            claude-code
           ];
 
           shellHook = ''

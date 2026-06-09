@@ -13,6 +13,7 @@ in
     userDirs = {
       enable = true;
       createDirectories = true;
+      setSessionVariables = true;
     };
     mimeApps = lib.mkIf hasWayland {
       enable = true;
@@ -118,17 +119,16 @@ in
       pavucontrol
       pulsemixer
       easyeffects
-      helvum
+      crosspipe
       bluez
-      blueberry
       bluez-tools
       blueman
 
-      xfce.thunar
-      xfce.thunar-volman
-      xfce.thunar-archive-plugin
-      xfce.thunar-media-tags-plugin
-      xfce.tumbler
+      thunar
+      thunar-volman
+      thunar-archive-plugin
+      thunar-media-tags-plugin
+      tumbler
 
       file-roller
       ffmpegthumbnailer
@@ -145,6 +145,7 @@ in
       simple-scan
       wireshark
       loupe
+      lmstudio
     ]
     ++ lib.optionals hasDocker [
       dive

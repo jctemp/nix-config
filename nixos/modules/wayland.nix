@@ -64,8 +64,8 @@
   };
 
   environment.systemPackages = with pkgs; [
-    xorg.xinit
-    xorg.xauth
+    xinit
+    xauth
     xterm
     swaylock
   ];

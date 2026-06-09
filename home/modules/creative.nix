@@ -17,6 +17,7 @@ in
     unstable.obs-studio
     unstable.audacity
     unstable.gimp
+    unstable.freecad
   ]
   ++ lib.optionals (hasWayland && hasNvidia) [
     inputs.blender-bin.packages.${pkgs.stdenv.hostPlatform.system}.default

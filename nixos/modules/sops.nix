@@ -51,11 +51,12 @@
       PermitRootLogin = "prohibit-password";
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
+      Banner = "/etc/ssh/banner";
     };
-    banner = ''
-      █▄ █ █ ▀▄▀ █▀█ █▀▀
-      █ ▀█ █ █ █ █▄█ ▄▄█
-      version ${config.system.nixos.release}
-    '';
   };
+  environment.etc."ssh/banner".text = ''
+    █▄ █ █ ▀▄▀ █▀█ █▀▀
+    █ ▀█ █ █ █ █▄█ ▄▄█
+    version ${config.system.nixos.release}
+  '';
 }

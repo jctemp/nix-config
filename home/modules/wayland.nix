@@ -134,7 +134,7 @@ in
       enable = true;
       systemd = {
         enable = true;
-        target = "sway-session.target";
+        targets = [ "sway-session.target" ];
       };
       settings = [
         {
@@ -204,7 +204,7 @@ in
           bluetooth = {
             format = "bt {status}";
             format-connected = "bt {device_alias}";
-            on-click = "${pkgs.blueberry}/bin/blueberry";
+            on-click = "${pkgs.blueman}/bin/blueman-manager";
             tooltip-format-connected = "{device_enumerate}";
             tooltip-format-enumerate-connected = "{device_alias}";
           };

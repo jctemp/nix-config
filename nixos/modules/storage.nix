@@ -1,6 +1,6 @@
 { inputs
 , config
-, lib
+, pkgs
 , ...
 }:
 let
@@ -101,8 +101,19 @@ in
   #       BOOT CONFIGURATION
   # ===============================================================
   boot = {
-    # ZFS rollback for impermanence
-    initrd.postDeviceCommands = lib.mkAfter zfs.rollback;
+    # ZFS rollback for impermanence (systemd initrd)
+    initrd.systemd.services.zfs-rollback = {
+      description = "Rollback root ZFS dataset to blank snapshot";
+      wantedBy = [ "initrd.target" ];
+      after = [ "zfs-import-rpool.service" ];
+      before = [ "sysroot.mount" ];
+      unitConfig.DefaultDependencies = "no";
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = pkgs.writeShellScript "zfs-rollback" zfs.rollback;
+      };
+    };
+    zfs.forceImportRoot = false; # exclude risk of data loss
     tmp.cleanOnBoot = true;
     supportedFilesystems = config.host.settings.extraSupportedFilesystems ++ [
       "vfat"

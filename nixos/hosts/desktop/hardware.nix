@@ -5,6 +5,18 @@
 }:
 {
   # ===============================================================
+  #       Add long living media storage
+  # ===============================================================
+  # boot.zfs.extraPools = [ "tank" ];
+
+  fileSystems = {
+    "/tank/documents" = { device = "tank/documents"; fsType = "zfs"; };
+    "/tank/inbox" = { device = "tank/inbox"; fsType = "zfs"; };
+    "/tank/photos" = { device = "tank/photos"; fsType = "zfs"; };
+    "/tank/videos" = { device = "tank/videos"; fsType = "zfs"; };
+  };
+
+  # ===============================================================
   #       NIXOS-FACTER INTEGRATION
   # ===============================================================
   imports = [
