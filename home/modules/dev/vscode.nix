@@ -21,8 +21,10 @@ in
     profiles.default = {
       extensions = [
         ext.llvm-vs-code-extensions.vscode-clangd
+        # MIT base extension (no Pylance); ruff + ty depend on it for activation.
+        ext.ms-python.python
         ext.charliermarsh.ruff
-        ext.detachhead.basedpyright
+        ext.astral-sh.ty
         ext.tamasfe.even-better-toml
         ext.jnoortheen.nix-ide
         ext.mkhl.direnv
@@ -45,7 +47,16 @@ in
           "editor.defaultFormatter" = "jnoortheen.nix-ide";
         };
 
-        # Python: ruff for formatting, basedpyright for analysis.
+        # Python: ruff for formatting, ty for type analysis. Disable the
+        # ms-python base extension's own language server (Pylance/Jedi) so ty
+        # owns type checking.
+        "python.languageServer" = "None";
+        # Use the ty/ruff binaries from the project devShell (direnv PATH), not
+        # the extensions' bundled binaries — those are prebuilt and fail to exec
+        # on NixOS (EPIPE on the language-server pipe).
+        "ty.importStrategy" = "fromEnvironment";
+        "ruff.importStrategy" = "fromEnvironment";
+        "ruff.nativeServer" = true;
         "[python]" = {
           "editor.defaultFormatter" = "charliermarsh.ruff";
         };

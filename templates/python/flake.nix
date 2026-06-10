@@ -14,7 +14,7 @@
         packages = with pkgs; [
           uv
           ruff
-          basedpyright
+          ty
           python3
           python3Packages.ipython
         ];

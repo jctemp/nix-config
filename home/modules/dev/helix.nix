@@ -127,10 +127,6 @@ in
           command = "ty";
           args = [ "server" ];
         };
-        pyright = {
-          command = "pyright-langserver";
-          args = [ "--stdio" ];
-        };
         ruff = {
           command = "ruff";
           args = [ "server" ];
@@ -203,7 +199,6 @@ in
           auto-format = true;
           language-servers = [
             "ty"
-            "pyright"
             "ruff"
           ];
           formatter = {
