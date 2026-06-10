@@ -7,18 +7,9 @@ let
 in
 {
   imports = [
-    ./modules/applications.nix
-    ./modules/creative.nix
-    ./modules/tooling.nix
-    ./modules/helix.nix
-    ./modules/vscode.nix
-    ./modules/gaming.nix
-    ./modules/git.nix
-    ./modules/gpg.nix
-    ./modules/shell.nix
-    ./modules/theming.nix
-    ./modules/wayland.nix
-    ./modules/notebooks.nix
+    ./modules/dev
+    ./modules/desktop
+    ./modules/system
   ];
 
   home = {
