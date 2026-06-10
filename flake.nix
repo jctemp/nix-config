@@ -17,6 +17,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     blender-bin.url = "github:edolstra/nix-warez?dir=blender";
     oisd = {
@@ -28,6 +32,26 @@
   outputs =
     inputs:
     {
+      templates = {
+        python = {
+          path = ./templates/python;
+          description = "Python (uv, ruff, basedpyright)";
+        };
+        c = {
+          path = ./templates/c;
+          description = "C (clang, cmake, ninja, gdb)";
+        };
+        web = {
+          path = ./templates/web;
+          description = "Web (node, ts, prettier)";
+        };
+        generic = {
+          path = ./templates/generic;
+          description = "Bare nixpkgs devShell";
+        };
+        default = inputs.self.templates.generic;
+      };
+
       nixosConfigurations = {
         desktop = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";

@@ -9,8 +9,9 @@ in
   imports = [
     ./modules/applications.nix
     ./modules/creative.nix
-    ./modules/development.nix
-    ./modules/editor.nix
+    ./modules/tooling.nix
+    ./modules/helix.nix
+    ./modules/vscode.nix
     ./modules/gaming.nix
     ./modules/git.nix
     ./modules/gpg.nix
