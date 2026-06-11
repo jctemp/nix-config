@@ -35,7 +35,7 @@
       templates = {
         python = {
           path = ./templates/python;
-          description = "Python (uv, ruff, basedpyright)";
+          description = "Python (uv, ruff, ty)";
         };
         c = {
           path = ./templates/c;

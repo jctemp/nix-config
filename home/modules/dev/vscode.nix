@@ -53,8 +53,14 @@ in
         "python.languageServer" = "None";
         # Use the ty/ruff binaries from the project devShell (direnv PATH), not
         # the extensions' bundled binaries — those are prebuilt and fail to exec
-        # on NixOS (EPIPE on the language-server pipe).
+        # on NixOS (the bundled-binary spawn dies → EPIPE / stream-destroyed on
+        # the language-server pipe). importStrategy=fromEnvironment is already
+        # the default and resolves adjacent to the Python interpreter, which is
+        # not where direnv puts ty/ruff; an explicit bare-name path forces a
+        # plain PATH lookup so the devShell binaries are used.
+        "ty.path" = [ "ty" ];
         "ty.importStrategy" = "fromEnvironment";
+        "ruff.path" = [ "ruff" ];
         "ruff.importStrategy" = "fromEnvironment";
         "ruff.nativeServer" = true;
         "[python]" = {
