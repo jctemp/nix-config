@@ -13,13 +13,6 @@ let
   inherit (config.host.settings) keyboardLayout;
 in
 {
-  imports = [
-    ./options.nix
-    ./testing.nix
-    ./users.nix
-    ./sops.nix
-  ];
-
   system.stateVersion = stateVersion;
   networking.hostName = hostName;
   networking.hostId = builtins.substring 0 8 (builtins.hashString "md5" hostName);
