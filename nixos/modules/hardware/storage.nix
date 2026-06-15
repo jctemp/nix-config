@@ -109,10 +109,8 @@ in
       after = [ "zfs-import-rpool.service" ];
       before = [ "sysroot.mount" ];
       unitConfig.DefaultDependencies = "no";
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = pkgs.writeShellScript "zfs-rollback" zfs.rollback;
-      };
+      serviceConfig.Type = "oneshot";
+      script = zfs.rollback;
     };
     zfs.forceImportRoot = false; # exclude risk of data loss
     tmp.cleanOnBoot = true;
