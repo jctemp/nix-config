@@ -11,9 +11,9 @@
   # ===============================================================
   #       SOPS Settings
   # ===============================================================
-  # Host decryption key derived from the SSH host key. No secrets are
-  # declared yet; add them under `sops.secrets` once the per-host
-  # secrets.sops.yaml is created (see .sops.yaml creation_rules).
+  # Host decryption key derived from the SSH host key. Per-host secrets are
+  # declared under `sops.secrets` in the host module (e.g. user-password in
+  # hosts/workstation/default.nix), keyed against secrets.sops.yaml.
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
   # ===============================================================
