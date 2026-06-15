@@ -61,7 +61,7 @@ in
           "${mod}+d" = "exec ${pkgs.fuzzel}/bin/fuzzel";
           "${mod}+Shift+q" = "kill";
           "${mod}+Shift+Escape" = "exec ${pkgs.swaylock-effects}/bin/swaylock";
-          "${mod}+Shift+e" = "exec ${pkgs.xfce.thunar}/bin/thunar";
+          "${mod}+Shift+e" = "exec ${pkgs.thunar}/bin/thunar";
           "${mod}+Shift+x" = "exec swaymsg exit";
 
           # Vim-like focus

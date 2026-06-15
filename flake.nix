@@ -69,31 +69,13 @@
       };
 
       nixosConfigurations = {
-        desktop = inputs.nixpkgs.lib.nixosSystem {
+        workstation = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
           };
           modules = [
-            {
-              host = {
-                settings = {
-                  name = "desktop";
-                  stateVersion = "24.11";
-                  timeZone = "Europe/Berlin";
-                  defaultLocale = "en_US.UTF-8";
-                  extraLocale = "de_DE.UTF-8";
-                  keyboardLayout = "us";
-                };
-                users.primary = "zen";
-                partition = {
-                  device = "/dev/nvme0n1";
-                  persist.path = "/persist";
-                };
-              };
-            }
-
-            ./nixos/hosts/desktop/default.nix
+            ./nixos/hosts/workstation/default.nix
 
             (
               { lib, ... }:

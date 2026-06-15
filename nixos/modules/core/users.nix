@@ -16,7 +16,7 @@ in
   users.users.${user.name} = {
     isNormalUser = true;
     description = user.identity;
-    inherit (user) hashedPassword;
+    hashedPasswordFile = config.sops.secrets.user-password.path;
     openssh.authorizedKeys.keys = user.authorizedKeys;
     extraGroups = [
       "wheel"
@@ -35,7 +35,7 @@ in
 
   # Configure root with same password and SSH keys
   users.users.root = {
-    inherit (user) hashedPassword;
+    hashedPasswordFile = config.sops.secrets.user-password.path;
     openssh.authorizedKeys.keys = user.authorizedKeys;
   };
 }

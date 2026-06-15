@@ -1,7 +1,16 @@
-_: {
+{ user, ... }:
+{
   programs.git = {
     enable = true;
-    signing.format = "openpgp";
+    settings.user = {
+      name = user.identity;
+      inherit (user) email;
+    };
+    signing = {
+      format = "openpgp";
+      key = user.signingKey;
+      signByDefault = true;
+    };
   };
 
   programs.gitui = {

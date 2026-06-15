@@ -3,7 +3,7 @@ keys:
   - &admin "2554AF728296F0DE6C7E65FC2A76355E27FF9075"
   - &recovery "age1ye3hvd0gvus60dc0uu0thy8h5nkw4lvcn53uv2fsp7szksgvfexs6st2qj"
   # Hosts
-  - &desktop "age1ust3kmy05n4z4x7f5etmctvpmv9gdy7y0mgvnyv6y9fuhm2lu5ysrasleg"
+  - &workstation "age1ust3kmy05n4z4x7f5etmctvpmv9gdy7y0mgvnyv6y9fuhm2lu5ysrasleg"
 
 creation_rules:
   - path_regex: secrets/common\.sops\.yaml$
@@ -12,14 +12,14 @@ creation_rules:
           - *admin
         age:
           - *recovery
-          - *desktop
+          - *workstation
           # - *homeserver
           # - *work
 
-  - path_regex: nixos/hosts/desktop/secrets\.sops\.yaml$
+  - path_regex: nixos/hosts/workstation/secrets\.sops\.yaml$
     key_groups:
       - pgp:
           - *admin
         age:
           - *recovery
-          - *desktop
+          - *workstation
