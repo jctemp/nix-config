@@ -1,5 +1,5 @@
 {
-  description = "Web development environment";
+  description = "Web (node, ts, biome)";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 

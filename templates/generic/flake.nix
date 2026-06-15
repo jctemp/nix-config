@@ -1,5 +1,5 @@
 {
-  description = "Generic nixpkgs development environment";
+  description = "Bare nixpkgs devShell";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 

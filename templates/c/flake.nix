@@ -1,5 +1,5 @@
 {
-  description = "C development environment";
+  description = "C (clang, cmake, ninja, gdb)";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 

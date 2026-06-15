@@ -1,5 +1,5 @@
 {
-  description = "Typst + LaTeX typesetting environment";
+  description = "Typst + LaTeX typesetting (tinymist, texlab, pandoc)";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 

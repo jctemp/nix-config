@@ -1,5 +1,5 @@
 {
-  description = "Python development environment";
+  description = "Python (uv, ruff, ty)";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 

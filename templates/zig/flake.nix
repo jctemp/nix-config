@@ -1,5 +1,5 @@
 {
-  description = "Zig development environment";
+  description = "Zig (zig, zls)";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 

@@ -1,5 +1,5 @@
 {
-  description = "Rust development environment";
+  description = "Rust (cargo, clippy, rust-analyzer, sccache)";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";

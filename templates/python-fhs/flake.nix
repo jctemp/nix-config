@@ -1,5 +1,5 @@
 {
-  description = "Python FHS environment (CUDA-capable, for pip/uv wheels)";
+  description = "Python FHS (CUDA-capable, for pip/uv wheels)";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 

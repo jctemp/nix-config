@@ -32,41 +32,21 @@
   outputs =
     inputs:
     {
-      templates = {
-        python = {
-          path = ./templates/python;
-          description = "Python (uv, ruff, ty)";
-        };
-        c = {
-          path = ./templates/c;
-          description = "C (clang, cmake, ninja, gdb)";
-        };
-        rust = {
-          path = ./templates/rust;
-          description = "Rust (cargo, clippy, rust-analyzer, sccache)";
-        };
-        zig = {
-          path = ./templates/zig;
-          description = "Zig (zig, zls)";
-        };
-        typst-latex = {
-          path = ./templates/typst-latex;
-          description = "Typst + LaTeX typesetting (tinymist, texlab, pandoc)";
-        };
-        python-fhs = {
-          path = ./templates/python-fhs;
-          description = "Python FHS (CUDA-capable, for pip/uv wheels)";
-        };
-        web = {
-          path = ./templates/web;
-          description = "Web (node, ts, biome)";
-        };
-        generic = {
-          path = ./templates/generic;
-          description = "Bare nixpkgs devShell";
-        };
-        default = inputs.self.templates.generic;
-      };
+      # Auto-discovered from ./templates: each subdirectory is a template, its
+      # description read from that template's own flake.nix (single source of
+      # truth). Drop in a new dir with a flake.nix and it appears here.
+      templates =
+        let
+          dir = ./templates;
+          isDir = _: type: type == "directory";
+          names = builtins.attrNames (inputs.nixpkgs.lib.filterAttrs isDir (builtins.readDir dir));
+          mk = name: {
+            path = dir + "/${name}";
+            inherit (import (dir + "/${name}/flake.nix")) description;
+          };
+          discovered = inputs.nixpkgs.lib.genAttrs names mk;
+        in
+        discovered // { default = discovered.generic; };
 
       nixosConfigurations = {
         workstation = inputs.nixpkgs.lib.nixosSystem {
