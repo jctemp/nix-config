@@ -1,5 +1,5 @@
 {
-  description = "Web development environment";
+  description = "Typst + LaTeX typesetting environment";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -12,10 +12,17 @@
     {
       devShells.${system}.default = pkgs.mkShell {
         packages = with pkgs; [
-          nodejs
-          typescript-language-server
-          vscode-langservers-extracted
-          biome
+          # Typst
+          typst
+          tinymist
+          typstyle
+
+          # LaTeX
+          texlive.combined.scheme-medium
+          texlab
+
+          # Conversion
+          pandoc
         ];
       };
     };

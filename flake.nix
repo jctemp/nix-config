@@ -41,9 +41,25 @@
           path = ./templates/c;
           description = "C (clang, cmake, ninja, gdb)";
         };
+        rust = {
+          path = ./templates/rust;
+          description = "Rust (cargo, clippy, rust-analyzer, sccache)";
+        };
+        zig = {
+          path = ./templates/zig;
+          description = "Zig (zig, zls)";
+        };
+        typst-latex = {
+          path = ./templates/typst-latex;
+          description = "Typst + LaTeX typesetting (tinymist, texlab, pandoc)";
+        };
+        python-fhs = {
+          path = ./templates/python-fhs;
+          description = "Python FHS (CUDA-capable, for pip/uv wheels)";
+        };
         web = {
           path = ./templates/web;
-          description = "Web (node, ts, prettier)";
+          description = "Web (node, ts, biome)";
         };
         generic = {
           path = ./templates/generic;
