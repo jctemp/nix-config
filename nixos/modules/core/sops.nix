@@ -14,7 +14,7 @@
   # Host decryption key derived from the SSH host key. Per-host secrets are
   # declared under `sops.secrets` in the host module (e.g. user-password in
   # hosts/workstation/default.nix), keyed against secrets.sops.yaml.
-  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  sops.age.sshKeyPaths = [ "${config.host.partition.persist.path}/etc/ssh/ssh_host_ed25519_key" ];
 
   # ===============================================================
   #       SSH SERVER

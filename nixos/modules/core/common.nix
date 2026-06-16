@@ -13,9 +13,10 @@ let
   inherit (config.host.settings) keyboardLayout;
 in
 {
+  # nix eval --impure --expr "builtins.substring 0 8 (builtins.hashString \"md5\" \"<hostname>\")"
   system.stateVersion = stateVersion;
   networking.hostName = hostName;
-  networking.hostId = builtins.substring 0 8 (builtins.hashString "md5" hostName);
+  networking.hostId = "b2c79ad7";
 
   # ===============================================================
   #       FUSE and SUDO
